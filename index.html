@@ -66,10 +66,26 @@
         </div>
     </div>
     <div class="book-list">
-
+        <!-- Display saved books here -->
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
     <script>
+        const firebaseConfig = {
+    apiKey: "AIzaSyAXJmPqxJpo71j7O-ctytLK-FakJnkOb9Q",
+    authDomain: "snapsync-aecb6.firebaseapp.com",
+    projectId: "snapsync-aecb6",
+    storageBucket: "snapsync-aecb6.appspot.com",
+    messagingSenderId: "68840702546",
+    appId: "1:68840702546:web:022f65e791414265f6558b",
+    measurementId: "G-X6LZM8RM08"
+  };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const booksRef = database.ref("books");
+
         function searchBooks() {
             const title = document.getElementById("titleInput").value;
             const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(title)}`;
@@ -107,10 +123,38 @@
                 });
         }
 
+        // Function to fetch and display saved books
+        function fetchAndDisplaySavedBooks() {
+            booksRef.on("value", function(snapshot) {
+                const bookList = document.querySelector(".book-list");
+                bookList.innerHTML = "";
+
+                snapshot.forEach(function(childSnapshot) {
+                    const book = childSnapshot.val();
+                    const bookItem = document.createElement("div");
+                    bookItem.classList.add("book-item");
+                    bookItem.innerHTML = `
+                        <h3>${book.title}</h3>
+                        <p>Author: ${book.author}</p>
+                        <p>Genre: ${book.genre}</p>
+                        <p>Publication Date: ${book.publicationDate}</p>
+                    `;
+                    bookList.appendChild(bookItem);
+                });
+            });
+        }
+
+        // Call fetchAndDisplaySavedBooks to initially display saved books
+        fetchAndDisplaySavedBooks();
+
         function addBook(title, author, genre, publicationDate) {
-            // You can implement adding the book to your Firebase database here
-            // For simplicity, we'll just display an alert with the book details
-            alert(`Added: Title: ${title}, Author: ${author}, Genre: ${genre}, Publication Date: ${publicationDate}`);
+            const newBookRef = booksRef.push();
+            newBookRef.set({
+                title: title,
+                author: author,
+                genre: genre,
+                publicationDate: publicationDate
+            });
         }
     </script>
 </body>
