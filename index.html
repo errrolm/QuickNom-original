@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
+    <!-- Meta tags and Bootstrap CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/logo.png" sizes="100x100">
@@ -44,11 +45,11 @@
             margin-bottom: 10px;
         }
 
-        :root{
+        :root {
             --font-primary: 'Nunito', sans-serif;
         }
 
-        .font-primary{
+        .font-primary {
             font-family: 'Nunito', sans-serif;
         }
     </style>
@@ -58,14 +59,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
     <div class="add-book">
+        <!-- Bootstrap input group for better styling -->
         <div class="input-group mb-3">
-          
-        <input type="text" class="form-control" id="titleInput" placeholder="Title">
-        <br><input type="text" class="form-control" id="authorInput" placeholder="Author">
-        <br><input type="text" class="form-control" id="publicationDateInput" placeholder="Publication Date">
-        <br><input type="text" class="form-control" id="genreInput" placeholder="Genre">
-        <button onclick="saveBook()" class="btn btn-primary">Save</button>
-    </div>
+            <input type="text" class="form-control" id="titleInput" placeholder="Title">
+            <button onclick="searchBookInfo()" class="btn btn-primary">Search Info</button>
+        </div>
     </div>
     <div class="book-list">
 
@@ -75,8 +73,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
-
-const firebaseConfig = {
+        const firebaseConfig = {
     apiKey: "AIzaSyAXJmPqxJpo71j7O-ctytLK-FakJnkOb9Q",
     authDomain: "snapsync-aecb6.firebaseapp.com",
     projectId: "snapsync-aecb6",
@@ -88,29 +85,37 @@ const firebaseConfig = {
 
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
-
         const booksRef = database.ref("books");
 
-        function saveBook() {
+        function searchBookInfo() {
             const title = document.getElementById("titleInput").value;
-            const author = document.getElementById("authorInput").value;
-            const publicationDate = document.getElementById("publicationDateInput").value;
-            const genre = document.getElementById("genreInput").value;
+            const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(title)}`;
 
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.items && data.items.length > 0) {
+                        const bookInfo = data.items[0].volumeInfo;
+                        const author = bookInfo.authors ? bookInfo.authors.join(", ") : "Unknown Author";
+                        const genre = bookInfo.categories ? bookInfo.categories.join(", ") : "Unknown Genre";
+                        const publicationDate = bookInfo.publishedDate || "Unknown Date";
 
-            const newBookRef = booksRef.push();
-            newBookRef.set({
-                title: title,
-                author: author,
-                publicationDate: publicationDate,
-                genre: genre
-            });
+                        const newBookRef = booksRef.push();
+                        newBookRef.set({
+                            title: title,
+                            author: author,
+                            genre: genre,
+                            publicationDate: publicationDate
+                        });
 
-
-            document.getElementById("titleInput").value = "";
-            document.getElementById("authorInput").value = "";
-            document.getElementById("publicationDateInput").value = "";
-            document.getElementById("genreInput").value = "";
+                        document.getElementById("titleInput").value = "";
+                    } else {
+                        console.log("Book not found.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching book data:", error);
+                });
         }
 
         booksRef.on("value", function(snapshot) {
@@ -124,8 +129,8 @@ const firebaseConfig = {
                 bookItem.innerHTML = `
                     <h3>${book.title}</h3>
                     <p>Author: ${book.author}</p>
-                    <p>Publication Date: ${book.publicationDate}</p>
                     <p>Genre: ${book.genre}</p>
+                    <p>Publication Date: ${book.publicationDate}</p>
                 `;
                 bookList.appendChild(bookItem);
             });
