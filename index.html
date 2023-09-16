@@ -3,112 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="assets/logo.png" sizes="50x50">
+    <link rel="icon" href="assets/logo.png" sizes="100x100">
+    <title>SnapSync BookStore</title>
     <style>
         body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-}
+            font-family: Arial, sans-serif;
+        }
 
-h1 {
-    color: #333;
-}
+        h1 {
+            text-align: center;
+        }
 
-.search {
-    margin: 20px;
-}
+        .add-book {
+            text-align: center;
+            margin: 20px;
+        }
 
-input[type="text"] {
-    padding: 10px;
-    width: 300px;
-    border: 1px solid #ccc;
-}
+        input[type="text"] {
+            padding: 5px;
+            margin-right: 10px;
+        }
 
-button {
-    padding: 10px 20px;
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
+        button {
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
 
+        .book-list {
+            margin: 20px;
+        }
+
+        .book-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
     </style>
-
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-    <title>SnapSync</title>
 </head>
 <body>
     <h1>Book Storing App</h1>
-    <div class="search">
-        <input type="text" id="bookInput" placeholder="Enter a book title">
-        <button onclick="searchBooks()">Search</button>
+    <div class="add-book">
+        <input type="text" id="titleInput" placeholder="Title">
+        <input type="text" id="authorInput" placeholder="Author">
+        <input type="text" id="publicationDateInput" placeholder="Publication Date">
+        <input type="text" id="genreInput" placeholder="Genre">
+        <button onclick="saveBook()">Save</button>
     </div>
     <div class="book-list">
-        <!-- Display search results here -->
+
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
     <script>
-        // Initialize Firebase with your Firebase config
+
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    databaseURL: "YOUR_DATABASE_URL",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
-};
+    apiKey: "AIzaSyAXJmPqxJpo71j7O-ctytLK-FakJnkOb9Q",
+    authDomain: "snapsync-aecb6.firebaseapp.com",
+    projectId: "snapsync-aecb6",
+    storageBucket: "snapsync-aecb6.appspot.com",
+    messagingSenderId: "68840702546",
+    appId: "1:68840702546:web:022f65e791414265f6558b",
+    measurementId: "G-X6LZM8RM08"
+  };
 
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
 
-function searchBooks() {
-    const bookTitle = document.getElementById("bookInput").value;
+        const booksRef = database.ref("books");
 
-    // Use Google Books API to search for books
-    fetch(`https://www.googleapis.com/books/v1/volumes?q=${bookTitle}`)
-        .then(response => response.json())
-        .then(data => {
-            displayBooks(data.items);
-        })
-        .catch(error => console.error(error));
-}
-
-function displayBooks(books) {
-    const bookList = document.querySelector(".book-list");
-    bookList.innerHTML = "";
-
-    books.forEach(book => {
-        const title = book.volumeInfo.title;
-        const author = book.volumeInfo.authors ? book.volumeInfo.authors.join(', ') : 'Unknown';
-        const thumbnail = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : 'https://via.placeholder.com/100';
-
-        const bookItem = document.createElement("div");
-        bookItem.classList.add("book-item");
-        bookItem.innerHTML = `
-            <img src="${thumbnail}" alt="${title}" />
-            <h3>${title}</h3>
-            <p>Author: ${author}</p>
-            <button onclick="saveBook('${title}', '${author}')">Save</button>
-        `;
-
-        bookList.appendChild(bookItem);
-    });
-}
-
-function saveBook(title, author) {
-    // Save book data to Firebase
-    const newBookRef = database.ref("books").push();
-    newBookRef.set({
-        title: title,
-        author: author
-    });
-    alert("Book saved!");
-}
+        function saveBook() {
+            const title = document.getElementById("titleInput").value;
+            const author = document.getElementById("authorInput").value;
+            const publicationDate = document.getElementById("publicationDateInput").value;
+            const genre = document.getElementById("genreInput").value;
 
 
+            const newBookRef = booksRef.push();
+            newBookRef.set({
+                title: title,
+                author: author,
+                publicationDate: publicationDate,
+                genre: genre
+            });
+
+
+            document.getElementById("titleInput").value = "";
+            document.getElementById("authorInput").value = "";
+            document.getElementById("publicationDateInput").value = "";
+            document.getElementById("genreInput").value = "";
+        }
+
+        booksRef.on("value", function(snapshot) {
+            const bookList = document.querySelector(".book-list");
+            bookList.innerHTML = "";
+
+            snapshot.forEach(function(childSnapshot) {
+                const book = childSnapshot.val();
+                const bookItem = document.createElement("div");
+                bookItem.classList.add("book-item");
+                bookItem.innerHTML = `
+                    <h3>${book.title}</h3>
+                    <p>Author: ${book.author}</p>
+                    <p>Publication Date: ${book.publicationDate}</p>
+                    <p>Genre: ${book.genre}</p>
+                `;
+                bookList.appendChild(bookItem);
+            });
+        });
     </script>
 </body>
 </html>
