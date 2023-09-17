@@ -8,8 +8,9 @@
 
     <title>Recipe Search</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Merriweather', serif;
         }
 
         h1 {
@@ -42,6 +43,12 @@
             border: 1px solid #ccc;
             padding: 10px;
             margin-bottom: 10px;
+            border-radius: 10px; /* Rounded corners */
+        }
+
+        .recipe-image {
+            max-width: 100%;
+            height: auto;
         }
 
         :root {
@@ -61,11 +68,12 @@
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="ingredientInput" placeholder="Enter ingredients separated by commas">
             <button onclick="searchRecipesByIngredients()" class="btn btn-primary">Search by Ingredients</button>
-            <button onclick="getRandomRecipe()" class="btn btn-success">Feeling Lucky</button>
         </div>
     </div>
     <div class="recipe-list">
     </div>
+
+    <button onclick="getRandomRecipe()" class="btn btn-success">Feeling Lucky</button>
 
     <script>
         const edamamAppId = "2f4013c4";
@@ -89,6 +97,7 @@
                             recipeItem.classList.add("recipe-item");
                             recipeItem.innerHTML = `
                                 <h3>${recipeInfo.label}</h3>
+                                <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}">
                                 <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
                                 <p>Servings: ${recipeInfo.yield}</p>
                                 <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
@@ -120,6 +129,7 @@
                         recipeItem.classList.add("recipe-item");
                         recipeItem.innerHTML = `
                             <h3>${randomRecipe.label}</h3>
+                            <img class="recipe-image" src="${randomRecipe.image}" alt="${randomRecipe.label}">
                             <p>Calories: ${randomRecipe.calories.toFixed(2)}</p>
                             <p>Servings: ${randomRecipe.yield}</p>
                             <a href="${randomRecipe.url}" target="_blank">View Recipe</a>
