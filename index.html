@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/logo.png" sizes="100x100">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <meta name="keywords" content="recipe, food, search recipe">
-    <meta name="description" content="Find recipes you love.">
 
     <title>Recipe Search</title>
     <style>
@@ -69,9 +67,11 @@
         <!-- Display recipe search results here -->
     </div>
 
+    <button onclick="getRandomRecipe()" class="btn btn-success">Feeling Lucky</button>
+
     <script>
-        const edamamAppId = "cd6b37fd";
-        const edamamAppKey = "c80743adacf434382531f1bee76be1a2";
+        const edamamAppId = "YOUR_EDAMAM_APP_ID";
+        const edamamAppKey = "YOUR_EDAMAM_APP_KEY";
 
         function searchRecipes() {
             const query = document.getElementById("recipeInput").value;
@@ -105,6 +105,33 @@
                     console.error("Error fetching recipe data:", error);
                 });
         }
-    </script>
-</body>
-</html>
+
+        function getRandomRecipe() {
+            const apiUrl = `https://api.edamam.com/search?q=&app_id=${edamamAppId}&app_key=${edamamAppKey}&from=0&to=1`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const recipeList = document.querySelector(".recipe-list");
+                    recipeList.innerHTML = "";
+
+                    if (data.hits && data.hits.length > 0) {
+                        const randomRecipe = data.hits[0].recipe;
+
+                        const recipeItem = document.createElement("div");
+                        recipeItem.classList.add("recipe-item");
+                        recipeItem.innerHTML = `
+                            <h3>${randomRecipe.label}</h3>
+                            <p>Calories: ${randomRecipe.calories.toFixed(2)}</p>
+                            <p>Servings: ${randomRecipe.yield}</p>
+                            <a href="${randomRecipe.url}" target="_blank">View Recipe</a>
+                        `;
+                        recipeList.appendChild(recipeItem);
+                    } else {
+                        recipeList.innerHTML = "No results found.";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching random recipe data:", error);
+                });
+       
