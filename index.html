@@ -11,16 +11,15 @@
 
     <title>QuickNom RecipeSearch</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto+Slab&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto+Slab&family=Ubuntu&display=swap');
 
         :root{
             --background-color: #222831;
             --search-btn-color: #DCD6F7;
             --feeling-lucky-btn-color: #A6B1E1;
-            --btn-font: roboto;
         }
         body {
-            font-family: 'Roboto Slab', serif;
+            font-family: 'Ubuntu', sans-serif;
             background-color: var(--background-color);
         }
 
@@ -85,7 +84,7 @@
             border-radius: 5px;
             transition-duration: 0.4s;
             background-color: transparent;
-            font-family: var(--btn-font);
+            /* font-family: var(--btn-font); */
         }
         .search-btn:hover{
             background-color: var(--search-btn-color);
@@ -100,7 +99,7 @@
             border-radius: 5px;
             transition-duration: 0.4s;
             background-color: transparent;
-            font-family: var(--btn-font);
+            /* font-family: var(--btn-font); */
         }
         .feeling-lucky-btn:hover{
             background-color: var(--feeling-lucky-btn-color);
@@ -119,7 +118,7 @@
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="ingredientInput" placeholder="Enter ingredients separated by commas">
             <button onclick="searchRecipesByIngredients()" class="search-btn">Search</button>
-            <button onclick="getRandomRecipe()" class="feeling-lucky-btn">Feeling Lucky</button>
+            <button onclick="loadPopularRecipes()" class="feeling-lucky-btn">Feeling Lucky</button>
         </div>
     </div>
     <div class="recipe-list" id="popular-recipes">
@@ -163,36 +162,36 @@
                 });
         }
 
-        function getRandomRecipe() {
-            const apiUrl = `https://api.edamam.com/search?q=*&app_id=${edamamAppId}&app_key=${edamamAppKey}&from=0&to=1`;
+        // function getRandomRecipe() {
+        //     const apiUrl = `https://api.edamam.com/search?q=*&app_id=${edamamAppId}&app_key=${edamamAppKey}&from=0&to=1`;
 
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const recipeList = document.querySelector(".recipe-list");
-                    recipeList.innerHTML = "";
+        //     fetch(apiUrl)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             const recipeList = document.querySelector(".recipe-list");
+        //             recipeList.innerHTML = "";
 
-                    if (data.hits && data.hits.length > 0) {
-                        const randomRecipe = data.hits[0].recipe;
+        //             if (data.hits && data.hits.length > 0) {
+        //                 const randomRecipe = data.hits[0].recipe;
 
-                        const recipeItem = document.createElement("div");
-                        recipeItem.classList.add("recipe-item");
-                        recipeItem.innerHTML = `
-                            <h3>${randomRecipe.label}</h3>
-                            <img class="recipe-image" src="${randomRecipe.image}" alt="${randomRecipe.label}">
-                            <p>Calories: ${randomRecipe.calories.toFixed(2)}</p>
-                            <p>Servings: ${randomRecipe.yield}</p>
-                            <a href="${randomRecipe.url}" target="_blank">View Recipe</a>
-                        `;
-                        recipeList.appendChild(recipeItem);
-                    } else {
-                        recipeList.innerHTML = "No results found.";
-                    }
-                })
-                .catch(error => {
-                    console.error("Error fetching random recipe data:", error);
-                });
-        }
+        //                 const recipeItem = document.createElement("div");
+        //                 recipeItem.classList.add("recipe-item");
+        //                 recipeItem.innerHTML = `
+        //                     <h3>${randomRecipe.label}</h3>
+        //                     <img class="recipe-image" src="${randomRecipe.image}" alt="${randomRecipe.label}">
+        //                     <p>Calories: ${randomRecipe.calories.toFixed(2)}</p>
+        //                     <p>Servings: ${randomRecipe.yield}</p>
+        //                     <a href="${randomRecipe.url}" target="_blank">View Recipe</a>
+        //                 `;
+        //                 recipeList.appendChild(recipeItem);
+        //             } else {
+        //                 recipeList.innerHTML = "No results found.";
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error("Error fetching random recipe data:", error);
+        //         });
+        // }
 
         function loadPopularRecipes() {
             const popularRecipesUrl = `https://api.edamam.com/search?q=popular&app_id=${edamamAppId}&app_key=${edamamAppKey}`;
