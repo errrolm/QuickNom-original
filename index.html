@@ -58,9 +58,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
     <div class="add-recipe">
+        <!-- Bootstrap input group for better styling -->
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id="recipeInput" placeholder="Search for a recipe">
-            <button onclick="searchRecipes()" class="btn btn-primary">Search</button>
+            <input type="text" class="form-control" id="ingredientInput" placeholder="Enter ingredients separated by commas">
+            <button onclick="searchRecipesByIngredients()" class="btn btn-primary">Search by Ingredients</button>
         </div>
     </div>
     <div class="recipe-list">
@@ -70,12 +71,12 @@
     <button onclick="getRandomRecipe()" class="btn btn-success">Feeling Lucky</button>
 
     <script>
-        const edamamAppId = "YOUR_EDAMAM_APP_ID";
-        const edamamAppKey = "YOUR_EDAMAM_APP_KEY";
+        const edamamAppId = "2f4013c4";
+        const edamamAppKey = "173b04b81fbfda990d7c78c089bb5569";
 
-        function searchRecipes() {
-            const query = document.getElementById("recipeInput").value;
-            const apiUrl = `https://api.edamam.com/search?q=${encodeURIComponent(query)}&app_id=${edamamAppId}&app_key=${edamamAppKey}`;
+        function searchRecipesByIngredients() {
+            const ingredients = document.getElementById("ingredientInput").value;
+            const apiUrl = `https://api.edamam.com/search?q=${encodeURIComponent(ingredients)}&app_id=${edamamAppId}&app_key=${edamamAppKey}`;
 
             fetch(apiUrl)
                 .then(response => response.json())
@@ -98,7 +99,7 @@
                             recipeList.appendChild(recipeItem);
                         });
                     } else {
-                        recipeList.innerHTML = "No results found.";
+                        recipeList.innerHTML = "No results found. Try different ingredients.";
                     }
                 })
                 .catch(error => {
@@ -134,4 +135,7 @@
                 .catch(error => {
                     console.error("Error fetching random recipe data:", error);
                 });
-       
+        }
+    </script>
+</body>
+</html>
