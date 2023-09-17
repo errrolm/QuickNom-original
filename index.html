@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +11,15 @@
     <title>SnapSync RecipeSearch</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Roboto+Slab&display=swap');
+
+        :root{
+            --background-color: #222831;
+            --search-btn-color: #DCD6F7;
+            --feeling-lucky-btn-color: #A6B1E1;
+        }
         body {
             font-family: 'Roboto Slab', serif;
+            background-color: var(--background-color);
         }
 
         h1 {
@@ -35,6 +42,14 @@
             color: #fff;
             border: none;
             cursor: pointer;
+        }
+
+        .search-btn{
+            background-color: var(--search-btn-color);
+        }
+        
+        .feeling-lucky-btn{
+            background-color: var(--feeling-lucky-btn-color);
         }
 
         .recipe-list {
@@ -68,8 +83,8 @@
     <div class="add-recipe">
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="ingredientInput" placeholder="Enter ingredients separated by commas">
-            <button onclick="searchRecipesByIngredients()" class="btn btn-outline-primary">Search</button>
-            <button onclick="getRandomRecipe()" class="btn btn-outline-success">Feeling Lucky</button>
+            <button onclick="searchRecipesByIngredients()" class="btn search-btn">Search</button>
+            <button onclick="getRandomRecipe()" class="btn feeling-lucky-btn">Feeling Lucky</button>
         </div>
     </div>
     <div class="recipe-list">
