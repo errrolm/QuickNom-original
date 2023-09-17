@@ -131,6 +131,7 @@
     <h3 class="font-primary" style="padding-left: 20px;">Here are some popular recipes</h3>
     <div class="recipe-list" id="popular-recipes">
     </div>
+    <button onclick="loadMoreRecipes()" class="search-btn">Load More</button>
     <footer style="text-align: center; margin-top: 20px;" class="font-primary">
         Made with ❤️ by <a href="https://errolm.netlify.app">ErrolM</a>
     </footer>
@@ -236,6 +237,43 @@
                     console.error("Error fetching popular recipe data:", error);
                 });
         }
+
+        let nextPage = 1; // result page
+
+function loadMoreRecipes() {
+    const popularRecipesUrl = `https://api.edamam.com/search?q=popular&app_id=${edamamAppId}&app_key=${edamamAppKey}&from=${nextPage * 10}&to=${(nextPage + 1) * 10}`;
+
+    fetch(popularRecipesUrl)
+        .then(response => response.json())
+        .then(data => {
+            const popularRecipeList = document.getElementById("popular-recipes");
+
+            if (data.hits && data.hits.length > 0) {
+                data.hits.forEach(recipe => {
+                    const recipeInfo = recipe.recipe;
+
+                    const recipeItem = document.createElement("div");
+                    recipeItem.classList.add("recipe-item");
+                    recipeItem.innerHTML = `
+                        <center><h3>${recipeInfo.label}</h3>
+                        <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}"></center>
+                        <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
+                        <p>Servings: ${recipeInfo.yield}</p>
+                        <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
+                    `;
+                    popularRecipeList.appendChild(recipeItem);
+                });
+
+                nextPage++; 
+            } else {
+                // hidin' load more btn
+                document.querySelector(".search-btn").style.display = "none";
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching popular recipe data:", error);
+        });
+}
 
         // Man, this took a long time.
         document.addEventListener("DOMContentLoaded", loadPopularRecipes);
