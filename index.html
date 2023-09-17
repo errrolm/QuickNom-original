@@ -177,12 +177,12 @@
                             recipeItem.innerHTML = `
                                 <center>
                                     <h3>${recipeInfo.label}</h3>
-                                    <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}">
+                                    <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}"></center>
                                     <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
                                     <p>Servings: ${recipeInfo.yield}</p>
                                     <p>${recipeInfo.dishType ? 'Cuisine Type: ' + recipeInfo.dishType : 'Description: N/A'}</p>
                                     <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
-                                </center>
+                                
                             `;
                             recipeList.appendChild(recipeItem);
                         });
@@ -214,12 +214,12 @@
                             recipeItem.innerHTML = `
                                 <center>
                                     <h3>${recipeInfo.label}</h3>
-                                    <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}">
+                                    <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}"></center>
                                     <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
                                     <p>Servings: ${recipeInfo.yield}</p>
                                     <p>${recipeInfo.dishType ? 'Cuisine Type: ' + recipeInfo.dishType : 'Description: N/A'}</p>
                                     <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
-                                </center>
+                                
                             `;
                             popularRecipeList.appendChild(recipeItem);
                         });
