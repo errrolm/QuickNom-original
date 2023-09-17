@@ -111,7 +111,22 @@
             background-color: var(--feeling-lucky-btn-color);
             color: var(--background-color);
         }
-
+        .load-more-btn{
+            border: 2px solid var(--feeling-lucky-btn-color);
+            color: #fff;
+            padding: 10px 10px;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+            background-color: transparent;
+            /* font-family: var(--btn-font); */
+        }
+        .load-more-btn:hover{
+            background-color: var(--feeling-lucky-btn-color);
+            color: var(--background-color);
+        }
 
     </style>
 </head>
@@ -131,7 +146,7 @@
     <h3 class="font-primary" style="padding-left: 20px;">Here are some popular recipes</h3>
     <div class="recipe-list" id="popular-recipes">
     </div>
-    <button onclick="loadMoreRecipes()" class="search-btn">Load More</button>
+    <button onclick="loadMoreRecipes()" class="load-more-btn">Load More</button>
     <footer style="text-align: center; margin-top: 20px;" class="font-primary">
         Made with ❤️ by <a href="https://errolm.netlify.app">ErrolM</a>
     </footer>
@@ -267,7 +282,7 @@ function loadMoreRecipes() {
                 nextPage++; 
             } else {
                 // hidin' load more btn
-                document.querySelector(".search-btn").style.display = "none";
+                document.querySelector(".load-more-btn").style.display = "none";
             }
         })
         .catch(error => {
