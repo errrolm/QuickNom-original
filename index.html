@@ -44,27 +44,18 @@
             padding: 10px;
             margin-bottom: 10px;
             border-radius: 10px;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center center;
-        }
-
-        .recipe-item::after {
-            content: "";
-            display: block;
-            clear: both;
         }
 
         .recipe-image {
             max-width: 100%;
             height: auto;
             border-radius: 5px;
-            visibility: hidden; /* Hide the actual image */
         }
 
-        a {
+        a{
             text-decoration: none;
         }
+
     </style>
 </head>
 <body>
@@ -101,9 +92,9 @@
 
                             const recipeItem = document.createElement("div");
                             recipeItem.classList.add("recipe-item");
-                            recipeItem.style.backgroundImage = `url('${recipeInfo.image}')`;
                             recipeItem.innerHTML = `
-                                <h3>${recipeInfo.label}</h3>
+                            <center><h3>${recipeInfo.label}</h3>
+                                <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}"></center>
                                 <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
                                 <p>Servings: ${recipeInfo.yield}</p>
                                 <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
@@ -120,7 +111,7 @@
         }
 
         function getRandomRecipe() {
-            const apiUrl = `https://api.edamam.com/search?q=random&app_id=${edamamAppId}&app_key=${edamamAppKey}&from=0&to=1`;
+            const apiUrl = `https://api.edamam.com/search?q=*&app_id=${edamamAppId}&app_key=${edamamAppKey}&from=0&to=1`;
 
             fetch(apiUrl)
                 .then(response => response.json())
@@ -133,9 +124,9 @@
 
                         const recipeItem = document.createElement("div");
                         recipeItem.classList.add("recipe-item");
-                        recipeItem.style.backgroundImage = `url('${randomRecipe.image}')`;
                         recipeItem.innerHTML = `
                             <h3>${randomRecipe.label}</h3>
+                            <img class="recipe-image" src="${randomRecipe.image}" alt="${randomRecipe.label}">
                             <p>Calories: ${randomRecipe.calories.toFixed(2)}</p>
                             <p>Servings: ${randomRecipe.yield}</p>
                             <a href="${randomRecipe.url}" target="_blank">View Recipe</a>
