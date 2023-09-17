@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 <head>
-    <!-- Meta tags and Bootstrap CSS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/logo.png" sizes="100x100">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-    <title>SnapSync BookStore</title>
+    <title>Recipe Search</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,7 +16,7 @@
             text-align: center;
         }
 
-        .add-book {
+        .add-recipe {
             text-align: center;
             margin: 20px;
         }
@@ -35,11 +34,11 @@
             cursor: pointer;
         }
 
-        .book-list {
+        .recipe-list {
             margin: 20px;
         }
 
-        .book-item {
+        .recipe-item {
             border: 1px solid #ccc;
             padding: 10px;
             margin-bottom: 10px;
@@ -55,106 +54,54 @@
     </style>
 </head>
 <body>
-    <h1 class="font-primary">SnapSync BookStore</h1>
+    <h1 class="font-primary">Recipe Search</h1>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-    <div class="add-book">
-        <!-- Bootstrap input group for better styling -->
+    <div class="add-recipe">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id="titleInput" placeholder="Search for a book">
-            <button onclick="searchBooks()" class="btn btn-primary">Search</button>
+            <input type="text" class="form-control" id="recipeInput" placeholder="Search for a recipe">
+            <button onclick="searchRecipes()" class="btn btn-primary">Search</button>
         </div>
     </div>
-    <div class="book-list">
-        <!-- Display saved books here -->
+    <div class="recipe-list">
+        <!-- Display recipe search results here -->
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
     <script>
-        const firebaseConfig = {
-    apiKey: "AIzaSyAXJmPqxJpo71j7O-ctytLK-FakJnkOb9Q",
-    authDomain: "snapsync-aecb6.firebaseapp.com",
-    projectId: "snapsync-aecb6",
-    storageBucket: "snapsync-aecb6.appspot.com",
-    messagingSenderId: "68840702546",
-    appId: "1:68840702546:web:022f65e791414265f6558b",
-    measurementId: "G-X6LZM8RM08"
-  };
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-        const booksRef = database.ref("books");
+        const edamamAppId = "YOUR_EDAMAM_APP_ID";
+        const edamamAppKey = "YOUR_EDAMAM_APP_KEY";
 
-        function searchBooks() {
-            const title = document.getElementById("titleInput").value;
-            const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(title)}`;
+        function searchRecipes() {
+            const query = document.getElementById("recipeInput").value;
+            const apiUrl = `https://api.edamam.com/search?q=${encodeURIComponent(query)}&app_id=${edamamAppId}&app_key=${edamamAppKey}`;
 
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
-                    const bookList = document.querySelector(".book-list");
-                    bookList.innerHTML = "";
+                    const recipeList = document.querySelector(".recipe-list");
+                    recipeList.innerHTML = "";
 
-                    if (data.items && data.items.length > 0) {
-                        data.items.forEach(book => {
-                            const bookInfo = book.volumeInfo;
-                            const author = bookInfo.authors ? bookInfo.authors.join(", ") : "Unknown Author";
-                            const genre = bookInfo.categories ? bookInfo.categories.join(", ") : "Unknown Genre";
-                            const publicationDate = bookInfo.publishedDate || "Unknown Date";
+                    if (data.hits && data.hits.length > 0) {
+                        data.hits.forEach(recipe => {
+                            const recipeInfo = recipe.recipe;
 
-                            const bookItem = document.createElement("div");
-                            bookItem.classList.add("book-item");
-                            bookItem.innerHTML = `
-                                <h3>${bookInfo.title}</h3>
-                                <p>Author: ${author}</p>
-                                <p>Genre: ${genre}</p>
-                                <p>Publication Date: ${publicationDate}</p>
-                                <button onclick="addBook('${bookInfo.title}', '${author}', '${genre}', '${publicationDate}')" class="btn btn-success">Add</button>
+                            const recipeItem = document.createElement("div");
+                            recipeItem.classList.add("recipe-item");
+                            recipeItem.innerHTML = `
+                                <h3>${recipeInfo.label}</h3>
+                                <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
+                                <p>Servings: ${recipeInfo.yield}</p>
+                                <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
                             `;
-                            bookList.appendChild(bookItem);
+                            recipeList.appendChild(recipeItem);
                         });
                     } else {
-                        bookList.innerHTML = "No results found.";
+                        recipeList.innerHTML = "No results found.";
                     }
                 })
                 .catch(error => {
-                    console.error("Error fetching book data:", error);
+                    console.error("Error fetching recipe data:", error);
                 });
-        }
-
-        // Function to fetch and display saved books
-        function fetchAndDisplaySavedBooks() {
-            booksRef.on("value", function(snapshot) {
-                const bookList = document.querySelector(".book-list");
-                bookList.innerHTML = "";
-
-                snapshot.forEach(function(childSnapshot) {
-                    const book = childSnapshot.val();
-                    const bookItem = document.createElement("div");
-                    bookItem.classList.add("book-item");
-                    bookItem.innerHTML = `
-                        <h3>${book.title}</h3>
-                        <p>Author: ${book.author}</p>
-                        <p>Genre: ${book.genre}</p>
-                        <p>Publication Date: ${book.publicationDate}</p>
-                    `;
-                    bookList.appendChild(bookItem);
-                });
-            });
-        }
-
-        // Call fetchAndDisplaySavedBooks to initially display saved books
-        fetchAndDisplaySavedBooks();
-
-        function addBook(title, author, genre, publicationDate) {
-            const newBookRef = booksRef.push();
-            newBookRef.set({
-                title: title,
-                author: author,
-                genre: genre,
-                publicationDate: publicationDate
-            });
         }
     </script>
 </body>
