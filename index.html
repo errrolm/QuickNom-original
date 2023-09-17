@@ -58,17 +58,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
     <div class="add-recipe">
-        <!-- Bootstrap input group for better styling -->
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="ingredientInput" placeholder="Enter ingredients separated by commas">
             <button onclick="searchRecipesByIngredients()" class="btn btn-primary">Search by Ingredients</button>
+            <button onclick="getRandomRecipe()" class="btn btn-success">Feeling Lucky</button>
         </div>
     </div>
     <div class="recipe-list">
-        <!-- Display recipe search results here -->
     </div>
-
-    <button onclick="getRandomRecipe()" class="btn btn-success">Feeling Lucky</button>
 
     <script>
         const edamamAppId = "2f4013c4";
