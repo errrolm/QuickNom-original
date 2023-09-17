@@ -74,6 +74,25 @@
             text-decoration: none;
         }
 
+        .search-btn{
+            background-color: var(--search-btn-color);
+            border: none;
+            color: var(--background-color);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .feeling-lucky-btn{
+            background-color: var(--feeling-lucky-btn-color);
+            border: none;
+            color: var(--background-color);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
 
     </style>
 </head>
@@ -85,8 +104,8 @@
     <div class="add-recipe">
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="ingredientInput" placeholder="Enter ingredients separated by commas">
-            <button onclick="searchRecipesByIngredients()" class="btn search-btn">Search</button>
-            <button onclick="getRandomRecipe()" class="btn feeling-lucky-btn">Feeling Lucky</button>
+            <button onclick="searchRecipesByIngredients()" class="search-btn">Search</button>
+            <button onclick="getRandomRecipe()" class="feeling-lucky-btn">Feeling Lucky</button>
         </div>
     </div>
     <div class="recipe-list">
