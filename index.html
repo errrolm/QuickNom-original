@@ -49,6 +49,7 @@
         .recipe-image {
             max-width: 100%;
             height: auto;
+            border-radius: 5px;
         }
 
         :root {
@@ -68,12 +69,11 @@
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="ingredientInput" placeholder="Enter ingredients separated by commas">
             <button onclick="searchRecipesByIngredients()" class="btn btn-primary">Search by Ingredients</button>
+            <button onclick="getRandomRecipe()" class="btn btn-success">Feeling Lucky</button>
         </div>
     </div>
     <div class="recipe-list">
     </div>
-
-    <button onclick="getRandomRecipe()" class="btn btn-success">Feeling Lucky</button>
 
     <script>
         const edamamAppId = "2f4013c4";
@@ -96,8 +96,8 @@
                             const recipeItem = document.createElement("div");
                             recipeItem.classList.add("recipe-item");
                             recipeItem.innerHTML = `
-                                <h3>${recipeInfo.label}</h3>
-                                <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}">
+                                <h3>${recipeInfo.label}</h3><center>
+                                <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}"></center>
                                 <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
                                 <p>Servings: ${recipeInfo.yield}</p>
                                 <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
