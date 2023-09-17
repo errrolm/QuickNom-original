@@ -74,6 +74,10 @@
             text-decoration: none;
         }
 
+        .search-input{
+            background: transparent;
+        }
+
     </style>
 </head>
 <body>
@@ -83,7 +87,7 @@
 
     <div class="add-recipe">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id="ingredientInput" placeholder="Enter ingredients separated by commas">
+            <input type="text" class="form-control search-input" id="ingredientInput" placeholder="Enter ingredients separated by commas">
             <button onclick="searchRecipesByIngredients()" class="btn search-btn">Search</button>
             <button onclick="getRandomRecipe()" class="btn feeling-lucky-btn">Feeling Lucky</button>
         </div>
