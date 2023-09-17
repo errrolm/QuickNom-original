@@ -119,7 +119,7 @@
             <button onclick="getRandomRecipe()" class="feeling-lucky-btn">Feeling Lucky</button>
         </div>
     </div>
-    <div class="recipe-list">
+    <div class="recipe-list" id="popular-recipes">
     </div>
 
     <script>
@@ -190,6 +190,42 @@
                     console.error("Error fetching random recipe data:", error);
                 });
         }
+
+        function loadPopularRecipes() {
+            const popularRecipesUrl = `https://api.edamam.com/search?q=popular&app_id=${edamamAppId}&app_key=${edamamAppKey}`;
+
+            fetch(popularRecipesUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const popularRecipeList = document.getElementById("popular-recipes");
+                    popularRecipeList.innerHTML = "";
+
+                    if (data.hits && data.hits.length > 0) {
+                        data.hits.forEach(recipe => {
+                            const recipeInfo = recipe.recipe;
+
+                            const recipeItem = document.createElement("div");
+                            recipeItem.classList.add("recipe-item");
+                            recipeItem.innerHTML = `
+                                <center><h3>${recipeInfo.label}</h3>
+                                <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}"></center>
+                                <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
+                                <p>Servings: ${recipeInfo.yield}</p>
+                                <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
+                            `;
+                            popularRecipeList.appendChild(recipeItem);
+                        });
+                    } else {
+                        popularRecipeList.innerHTML = "No popular recipes found.";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching popular recipe data:", error);
+                });
+        }
+
+        // Man, this took a long time.
+        document.addEventListener("DOMContentLoaded", loadPopularRecipes);
     </script>
 </body>
 </html>
