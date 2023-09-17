@@ -6,7 +6,7 @@
     <link rel="icon" href="assets/icon.png" sizes="26x26">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <meta name="description" content="Search your favorite recipes."> 
-    <!--Icons.-->
+    <!-- Icons. -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" />
 
     <title>QuickNom RecipeSearch</title>
@@ -21,7 +21,6 @@
             --primary-color: #DCD6F7;
         }
         body {
-            /* font-family: 'Ubuntu', sans-serif; */
             font-family: 'Roboto', sans-serif;
             background-color: var(--background-color);
         }
@@ -91,7 +90,6 @@
             border-radius: 5px;
             transition-duration: 0.4s;
             background-color: transparent;
-            /* font-family: var(--btn-font); */
         }
         .search-btn:hover{
             background-color: var(--search-btn-color);
@@ -106,7 +104,6 @@
             border-radius: 5px;
             transition-duration: 0.4s;
             background-color: transparent;
-            /* font-family: var(--btn-font); */
         }
         .feeling-lucky-btn:hover{
             background-color: var(--feeling-lucky-btn-color);
@@ -122,7 +119,6 @@
             border-radius: 5px;
             transition-duration: 0.4s;
             background-color: transparent;
-            /* font-family: var(--btn-font); */
         }
         .load-more-btn:hover{
             background-color: var(--feeling-lucky-btn-color);
@@ -145,7 +141,6 @@
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="ingredientInput" placeholder="Enter ingredients separated by commas">
             <button onclick="searchRecipesByIngredients()" class="search-btn">Search</button>
-            <!-- <button onclick="loadPopularRecipes()" class="feeling-lucky-btn">Feeling Lucky</button> -->
         </div>
         <br>
     </div>
@@ -153,7 +148,7 @@
     <div class="recipe-list" id="popular-recipes">
     </div>
     <div class="d-flex justify-content-center align-items-center">
-    <button onclick="loadMoreRecipes()" class="load-more-btn">Discover more delights</button>
+        <button onclick="loadMoreRecipes()" class="load-more-btn">Discover more delights</button>
     </div>
     <footer style="text-align: center; margin-top: 20px;" class="font-primary">
         Made with ❤️ by <a href="https://errolm.netlify.app">ErrolM</a>
@@ -180,11 +175,14 @@
                             const recipeItem = document.createElement("div");
                             recipeItem.classList.add("recipe-item");
                             recipeItem.innerHTML = `
-                            <center><h3>${recipeInfo.label}</h3>
-                                <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}"></center>
-                                <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
-                                <p>Servings: ${recipeInfo.yield}</p>
-                                <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
+                                <center>
+                                    <h3>${recipeInfo.label}</h3>
+                                    <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}">
+                                    <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
+                                    <p>Servings: ${recipeInfo.yield}</p>
+                                    <p>Description: ${recipeInfo.dishType ? recipeInfo.dishType : 'N/A'}</p>
+                                    <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
+                                </center>
                             `;
                             recipeList.appendChild(recipeItem);
                         });
@@ -197,45 +195,15 @@
                 });
         }
 
-        // function getRandomRecipe() {
-        //     const apiUrl = `https://api.edamam.com/search?q=*&app_id=${edamamAppId}&app_key=${edamamAppKey}&from=0&to=1`;
+        let nextPage = 1;
 
-        //     fetch(apiUrl)
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             const recipeList = document.querySelector(".recipe-list");
-        //             recipeList.innerHTML = "";
-
-        //             if (data.hits && data.hits.length > 0) {
-        //                 const randomRecipe = data.hits[0].recipe;
-
-        //                 const recipeItem = document.createElement("div");
-        //                 recipeItem.classList.add("recipe-item");
-        //                 recipeItem.innerHTML = `
-        //                     <h3>${randomRecipe.label}</h3>
-        //                     <img class="recipe-image" src="${randomRecipe.image}" alt="${randomRecipe.label}">
-        //                     <p>Calories: ${randomRecipe.calories.toFixed(2)}</p>
-        //                     <p>Servings: ${randomRecipe.yield}</p>
-        //                     <a href="${randomRecipe.url}" target="_blank">View Recipe</a>
-        //                 `;
-        //                 recipeList.appendChild(recipeItem);
-        //             } else {
-        //                 recipeList.innerHTML = "No results found.";
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error("Error fetching random recipe data:", error);
-        //         });
-        // }
-
-        function loadPopularRecipes() {
-            const popularRecipesUrl = `https://api.edamam.com/search?q=popular&app_id=${edamamAppId}&app_key=${edamamAppKey}`;
+        function loadMoreRecipes() {
+            const popularRecipesUrl = `https://api.edamam.com/search?q=popular&app_id=${edamamAppId}&app_key=${edamamAppKey}&from=${nextPage * 10}&to=${(nextPage + 1) * 10}`;
 
             fetch(popularRecipesUrl)
                 .then(response => response.json())
                 .then(data => {
                     const popularRecipeList = document.getElementById("popular-recipes");
-                    popularRecipeList.innerHTML = "";
 
                     if (data.hits && data.hits.length > 0) {
                         data.hits.forEach(recipe => {
@@ -244,16 +212,21 @@
                             const recipeItem = document.createElement("div");
                             recipeItem.classList.add("recipe-item");
                             recipeItem.innerHTML = `
-                                <center><h3>${recipeInfo.label}</h3>
-                                <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}"></center>
-                                <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
-                                <p>Servings: ${recipeInfo.yield}</p>
-                                <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
+                                <center>
+                                    <h3>${recipeInfo.label}</h3>
+                                    <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}">
+                                    <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
+                                    <p>Servings: ${recipeInfo.yield}</p>
+                                    <p>Description: ${recipeInfo.dishType ? recipeInfo.dishType : 'N/A'}</p>
+                                    <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
+                                </center>
                             `;
                             popularRecipeList.appendChild(recipeItem);
                         });
+
+                        nextPage++; 
                     } else {
-                        popularRecipeList.innerHTML = "No popular recipes found.";
+                        document.querySelector(".load-more-btn").style.display = "none";
                     }
                 })
                 .catch(error => {
@@ -261,45 +234,7 @@
                 });
         }
 
-        let nextPage = 1; // result page
-
-function loadMoreRecipes() {
-    const popularRecipesUrl = `https://api.edamam.com/search?q=popular&app_id=${edamamAppId}&app_key=${edamamAppKey}&from=${nextPage * 10}&to=${(nextPage + 1) * 10}`;
-
-    fetch(popularRecipesUrl)
-        .then(response => response.json())
-        .then(data => {
-            const popularRecipeList = document.getElementById("popular-recipes");
-
-            if (data.hits && data.hits.length > 0) {
-                data.hits.forEach(recipe => {
-                    const recipeInfo = recipe.recipe;
-
-                    const recipeItem = document.createElement("div");
-                    recipeItem.classList.add("recipe-item");
-                    recipeItem.innerHTML = `
-                        <center><h3>${recipeInfo.label}</h3>
-                        <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}"></center>
-                        <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
-                        <p>Servings: ${recipeInfo.yield}</p>
-                        <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
-                    `;
-                    popularRecipeList.appendChild(recipeItem);
-                });
-
-                nextPage++; 
-            } else {
-                // hidin' load more btn
-                document.querySelector(".load-more-btn").style.display = "none";
-            }
-        })
-        .catch(error => {
-            console.error("Error fetching popular recipe data:", error);
-        });
-}
-
-        // Man, this took a long time.
-        document.addEventListener("DOMContentLoaded", loadPopularRecipes);
+        document.addEventListener("DOMContentLoaded", loadMoreRecipes);
     </script>
 </body>
 </html>
