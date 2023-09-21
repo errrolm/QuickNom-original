@@ -137,76 +137,12 @@
     <h1 class="font-primary">QuickNom</h1>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-    <!-- Bootstrap Modal for Allergy Filters -->
-    <div class="modal fade" id="allergyModal" tabindex="-1" aria-labelledby="allergyModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="allergyModalLabel">Select Allergies to Filter</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="dairyCheckbox">
-                            <label class="form-check-label" for="dairyCheckbox">Dairy</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="glutenCheckbox">
-                            <label class="form-check-label" for="glutenCheckbox">Gluten</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="nutsCheckbox">
-                            <label class="form-check-label" for="nutsCheckbox">Nuts</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="milkCheckbox">
-                            <label class="form-check-label" for="milkCheckbox">Milk</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="eggsCheckbox">
-                            <label class="form-check-label" for="eggsCheckbox">Eggs</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="peanutsCheckbox">
-                            <label class="form-check-label" for="peanutsCheckbox">Peanuts</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="soyCheckbox">
-                            <label class="form-check-label" for="soyCheckbox">Soy</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="wheatCheckbox">
-                            <label class="form-check-label" for="wheatCheckbox">Wheat</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="treeNutsCheckbox">
-                            <label class="form-check-label" for="treeNutsCheckbox">Tree Nuts</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="fishCheckbox">
-                            <label class="form-check-label" for="fishCheckbox">Fish</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="shellfishCheckbox">
-                            <label class="form-check-label" for="shellfishCheckbox">Shellfish</label>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="applyAllergyFilters()">Apply Filters</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="add-recipe">
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="ingredientInput" placeholder="Let's cook some magic.">
-            <button type="button" class="search-btn" data-bs-toggle="modal" data-bs-target="#allergyModal"><span class="material-symbols-outlined">tune</span></button>
             <button onclick="searchRecipesByIngredients()" class="search-btn">Search</button>
         </div>
+        <br>
     </div>
     <h3 class="font-primary" style="padding-left: 20px;">Here are some popular recipes</h3>
     <div class="recipe-list" id="popular-recipes">
@@ -222,62 +158,20 @@
         const edamamAppId = "2f4013c4";
         const edamamAppKey = "173b04b81fbfda990d7c78c089bb5569";
 
-        let selectedAllergies = [];
-
-        function applyAllergyFilters() {
-            selectedAllergies = [];
-            if (document.getElementById("dairyCheckbox").checked) {
-                selectedAllergies.push("dairy");
-            }
-            if (document.getElementById("glutenCheckbox").checked) {
-                selectedAllergies.push("gluten");
-            }
-            if (document.getElementById("nutsCheckbox").checked) {
-                selectedAllergies.push("nuts");
-            }
-            if (document.getElementById("milkCheckbox").checked) {
-                selectedAllergies.push("milk");
-            }
-            if (document.getElementById("eggsCheckbox").checked) {
-                selectedAllergies.push("eggs");
-            }
-            if (document.getElementById("peanutsCheckbox").checked) {
-                selectedAllergies.push("peanuts");
-            }
-            if (document.getElementById("soyCheckbox").checked) {
-                selectedAllergies.push("soy");
-            }
-            if (document.getElementById("wheatCheckbox").checked) {
-                selectedAllergies.push("wheat");
-            }
-            if (document.getElementById("treeNutsCheckbox").checked) {
-                selectedAllergies.push("tree nuts");
-            }
-            if (document.getElementById("fishCheckbox").checked) {
-                selectedAllergies.push("fish");
-            }
-            if (document.getElementById("shellfishCheckbox").checked) {
-                selectedAllergies.push("shellfish");
-            }
-            const modal = new bootstrap.Modal(document.getElementById("allergyModal"));
-            modal.hide();
-            searchRecipesByIngredients();
-        }
-
         function searchRecipesByIngredients() {
             const ingredients = document.getElementById("ingredientInput").value;
-            let apiUrl = `https://api.edamam.com/search?q=${encodeURIComponent(ingredients)}&app_id=${edamamAppId}&app_key=${edamamAppKey}`;
-            if (selectedAllergies.length > 0) {
-                apiUrl += `&health=${selectedAllergies.join('&health=')}`;
-            }
+            const apiUrl = `https://api.edamam.com/search?q=${encodeURIComponent(ingredients)}&app_id=${edamamAppId}&app_key=${edamamAppKey}`;
+
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
                     const recipeList = document.querySelector(".recipe-list");
                     recipeList.innerHTML = "";
+
                     if (data.hits && data.hits.length > 0) {
                         data.hits.forEach(recipe => {
                             const recipeInfo = recipe.recipe;
+
                             const recipeItem = document.createElement("div");
                             recipeItem.classList.add("recipe-item");
                             recipeItem.innerHTML = `
@@ -288,6 +182,7 @@
                                     <p>Servings: ${recipeInfo.yield}</p>
                                     <p>${recipeInfo.dishType ? 'Category: ' + recipeInfo.dishType : 'Description: N/A'}</p>
                                     <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
+                                
                             `;
                             recipeList.appendChild(recipeItem);
                         });
@@ -304,13 +199,16 @@
 
         function loadMoreRecipes() {
             const popularRecipesUrl = `https://api.edamam.com/search?q=popular&app_id=${edamamAppId}&app_key=${edamamAppKey}&from=${nextPage * 10}&to=${(nextPage + 1) * 10}`;
+
             fetch(popularRecipesUrl)
                 .then(response => response.json())
                 .then(data => {
                     const popularRecipeList = document.getElementById("popular-recipes");
+
                     if (data.hits && data.hits.length > 0) {
                         data.hits.forEach(recipe => {
                             const recipeInfo = recipe.recipe;
+
                             const recipeItem = document.createElement("div");
                             recipeItem.classList.add("recipe-item");
                             recipeItem.innerHTML = `
@@ -321,10 +219,12 @@
                                     <p>Servings: ${recipeInfo.yield}</p>
                                     <p>${recipeInfo.dishType ? 'Category: ' + recipeInfo.dishType : 'Description: N/A'}</p>
                                     <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
+                                
                             `;
                             popularRecipeList.appendChild(recipeItem);
                         });
-                        nextPage++;
+
+                        nextPage++; 
                     } else {
                         document.querySelector(".load-more-btn").style.display = "none";
                     }
@@ -333,6 +233,8 @@
                     console.error("Error fetching popular recipe data:", error);
                 });
         }
+
+        document.addEventListener("DOMContentLoaded", loadMoreRecipes);
     </script>
 </body>
 </html>
