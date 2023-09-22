@@ -163,6 +163,14 @@
         .less-healthy-circle {
             background-color: red;
         }
+
+        /* Define a class for centering content */
+        .center-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
     </style>
 </head>
 <body>
@@ -183,6 +191,12 @@
     <div class="d-flex justify-content-center align-items-center">
         <button onclick="loadMoreRecipes()" class="load-more-btn">Discover more delights</button>
     </div>
+
+    <!-- Centered GIF image container (Initially hidden) -->
+    <div class="center-content" id="no-results-container" style="display: none;">
+        <img src="image.gif" alt="No results found">
+    </div>
+
     <footer style="text-align: center; margin-top: 20px;" class="font-primary">
         Made with ❤️ by <a href="https://errolm.netlify.app">ErrolM</a>
     </footer>
@@ -236,7 +250,8 @@
                             recipeList.appendChild(recipeItem);
                         });
                     } else {
-                        recipeList.innerHTML = "No results found. Try different ingredients.";
+                        // Display the GIF image when no results are found
+                        document.getElementById("no-results-container").style.display = "block";
                     }
                 })
                 .catch(error => {
