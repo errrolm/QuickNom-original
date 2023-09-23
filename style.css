@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Merriweather&family=Roboto&family=Roboto+Slab&family=Ubuntu&display=swap');
+
+        :root{
+            --background-color: #222831;
+            --search-btn-color: #DCD6F7;
+            --feeling-lucky-btn-color: #A6B1E1;
+            --bold-font: 'Archivo Black', sans-serif;
+            --primary-color: #DCD6F7;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+        }
+
+        .font-primary{
+            font-family: var(--bold-font);
+            color: #DCD6F7;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .add-recipe {
+            text-align: center;
+            margin: 20px;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .search-btn{
+            background-color: var(--search-btn-color);
+        }
+        
+        .feeling-lucky-btn{
+            background-color: var(--feeling-lucky-btn-color);
+        }
+
+        .recipe-list {
+            margin: 20px;
+        }
+
+        .recipe-item {
+            border: 2px solid #DCD6F7;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+ 
+        .recipe-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        a{
+            text-decoration: none;
+        }
+
+        .search-btn{
+            border: 2px solid var(--search-btn-color);
+            color: #fff;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+            background-color: transparent;
+        }
+        .search-btn:hover{
+            background-color: var(--search-btn-color);
+            color: var(--background-color);
+        }
+        .feeling-lucky-btn{
+            border: 2px solid var(--feeling-lucky-btn-color);
+            color: #fff;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+            background-color: transparent;
+        }
+        .feeling-lucky-btn:hover{
+            background-color: var(--feeling-lucky-btn-color);
+            color: var(--background-color);
+        }
+        .load-more-btn{
+            border: 2px solid var(--feeling-lucky-btn-color);
+            color: #fff;
+            padding: 10px 10px;
+            width: 90%;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+            background-color: transparent;
+        }
+        .load-more-btn:hover{
+            background-color: var(--feeling-lucky-btn-color);
+            color: var(--background-color);
+        }
+        
+        h3,p{
+            color: var(--primary-color);
+            font-family: var(--bold-font);
+        }
+
+        /* colors for color system */
+        .healthy {
+            color: green;
+        }
+
+        .moderate {
+            color: yellow;
+        }
+
+        .less-healthy {
+            color: red;
+        }
+
+        /* circle color */
+        .traffic-light-circle {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .healthy-circle {
+            background-color: green;
+        }
+
+        .moderate-circle {
+            background-color: yellow;
+        }
+
+        .less-healthy-circle {
+            background-color: red;
+        }
