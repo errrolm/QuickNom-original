@@ -1,6 +1,6 @@
         const edamamAppId = "2f4013c4";
         const edamamAppKey = "173b04b81fbfda990d7c78c089bb5569";
-
+        // OKAY, NOW THIS IS IS STRAIGHT UP UNACCEPTABLE.
         function searchRecipesByIngredients() {
             const ingredients = document.getElementById("ingredientInput").value;
             const apiUrl = `https://api.edamam.com/search?q=${encodeURIComponent(ingredients)}&app_id=${edamamAppId}&app_key=${edamamAppKey}`;
