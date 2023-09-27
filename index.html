@@ -20,7 +20,7 @@
     <script src="script.js"></script>
     <div class="add-recipe">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id="ingredientInput" placeholder="Let's cook some magic.">
+            <input type="text" class="form-control" id="ingredientInput" placeholder="Let's cook some magic" onkeydown="if(event.key==='Enter') searchRecipesByIngredients()">
             <button onclick="searchRecipesByIngredients()" class="search-btn">Search</button>
         </div>
         <br>
