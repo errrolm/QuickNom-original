@@ -16,7 +16,7 @@
     <title>QuickNom</title>
 </head>
 <body class="bg-gray-900 text-white">
-    <div class="w-90 mx-auto"> 
+    <div class="w-80 mx-auto"> <!-- Set the container to 80% width and center it -->
         <br>
         <h1 class="text-3xl font-primary text-center">QuickNom</h1>
         <!--I KNEW YOU'D COME HERE. GUESS WHAT, I GOT YOUR IP ADDRESS SINCE YOU OPENED THE CONSOLE. COPYING CODE ISN'T THE WAY TO GO MAN.-->
@@ -24,7 +24,7 @@
         <script src="script.js"></script>
         <div class="add-recipe mb-3">
             <div class="relative">
-                <input type="text" class="w-full py-2 pl-10 pr-4 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500" id="ingredientInput" placeholder="Let's cook some magic.">
+                <input type="text" class="w-full py-2 pl-10 pr-12 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500" id="ingredientInput" placeholder="Let's cook some magic.">
                 <button onclick="searchRecipesByIngredients()" class="absolute inset-y-0 right-0 px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-r-lg text-white">Search</button>
             </div>
         </div>
@@ -32,9 +32,9 @@
         <div class="recipe-list" id="popular-recipes">
         </div>
         <div class="flex justify-center items-center">
-            <button onclick="loadMoreRecipes()" style="width: 80%;" class="w-90 bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-lg text-white mt-4">Discover more delights</button>
+            <button onclick="loadMoreRecipes()" class="w-full bg-blue-500 hover:bg-blue-600 px-6 py-3 rounded-lg text-white mt-4">Discover more delights</button>
         </div>
-        <footer class="text-center mt-20 font-primary">
+        <footer class="text-center mt-10 font-primary">
             Made with <img src="assets/takeout-box.png" style="width: 26px; height: 26px;"> by <a href="https://errolm.netlify.app">ErrolM</a>
         </footer>
     </div>
