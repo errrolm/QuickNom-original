@@ -10,21 +10,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" />
     <link rel="stylesheet" href="style.css">
 
-    <style>
-        /* Custom CSS for the input and button placement */
-        .input-group .form-control,
-        .input-group .search-btn {
-            border-radius: 0;
-            border-top-right-radius: 5px;
-            border-bottom-right-radius: 5px;
-        }
-
-        .input-group .search-btn {
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-    </style>
-
     <title>QuickNom</title>
 </head>
 <body>
@@ -33,11 +18,13 @@
     <!--I KNEW YOU'D COME HERE. GUESS WHAT, I GOT YOUR IP ADDRESS SINCE YOU OPENED THE CONSOLE. COPYING CODE ISN'T THE WAY TO GO MAN.-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script src="script.js"></script>
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" id="ingredientInput" placeholder="Let's cook some magic.">
-        <button onclick="searchRecipesByIngredients()" class="btn btn-primary search-btn">Search</button>
+    <div class="add-recipe">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="ingredientInput" placeholder="Let's cook some magic" onkeydown="if(event.key==='Enter') searchRecipesByIngredients()">
+            <button onclick="searchRecipesByIngredients()" class="search-btn">Search</button>
+        </div>
+        <br>
     </div>
-    <br>
     <h3 class="font-primary" style="padding-left: 20px;">Here are some popular recipes</h3>
     <div class="recipe-list" id="popular-recipes">
     </div>
@@ -47,5 +34,6 @@
     <footer style="text-align: center; margin-top: 20px;" class="font-primary">
         Made with <img src="assets/takeout-box.png" style="width: 26px; height: 26px;"> by <a href="https://errolm.netlify.app">ErrolM</a><br>
     </footer>
+
 </body>
 </html>
