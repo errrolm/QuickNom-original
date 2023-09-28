@@ -36,7 +36,6 @@
                         data.hits.forEach(recipe => {
                             const recipeInfo = recipe.recipe;
 
-                            // Determine the healthiness category based on your criteria
                             let healthinessClass;
                             const caloriesPerServing = recipeInfo.calories / recipeInfo.yield;
 
@@ -67,23 +66,19 @@
                             recipeList.appendChild(recipeItem);
                         });
                     } else {
-                        // Display the error alert if no results are found
                         const errorAlert = document.getElementById('errorAlert');
                         errorAlert.classList.remove('d-none');
 
-                        // Hide the error message after 8 seconds (8000 milliseconds)
                         setTimeout(() => {
                             errorAlert.classList.add('d-none');
                         }, 8000);
                     }
                 })
                 .catch(error => {
-                    // Display the error alert if an error occurs
                     console.error("Error fetching recipe data:", error);
                     const errorAlert = document.getElementById('errorAlert');
                     errorAlert.classList.remove('d-none');
 
-                    // Hide the error message after 8 seconds (8000 milliseconds)
                     setTimeout(() => {
                         errorAlert.classList.add('d-none');
                     }, 8000);
@@ -104,7 +99,6 @@
                         data.hits.forEach(recipe => {
                             const recipeInfo = recipe.recipe;
 
-                            // Determine the healthiness category based on your criteria
                             let healthinessClass;
                             const caloriesPerServing = recipeInfo.calories / recipeInfo.yield;
 
@@ -129,6 +123,7 @@
                                         <span class="${healthinessClass}">${healthinessClass}</span>
                                     </p>
                                     <p>${recipeInfo.dishType ? 'Category: ' + recipeInfo.dishType : 'Description: N/A'}</p>
+                                    <p>Cuisine: ${recipeInfo.cuisineType ? recipeInfo.cuisineType.join(', ') : 'N/A'}</p>
                                     <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
                             `;
                             popularRecipeList.appendChild(recipeItem);
@@ -157,7 +152,6 @@
         </div>
         <br>
     </div>
-    <!-- Modified Error Alert -->
     <div class="alert alert-danger d-none" id="errorAlert" role="alert" style="width: 80%; margin: 0 auto; text-align: center;">
         <i class="fa-solid fa-circle-exclamation fa-fade"></i> No results found or an error occurred.
     </div>
