@@ -62,6 +62,7 @@
                                     <p>${recipeInfo.dishType ? 'Category: ' + recipeInfo.dishType : 'Description: N/A'}</p>
                                     <p>Cuisine: ${recipeInfo.cuisineType ? recipeInfo.cuisineType.join(', ') : 'N/A'}</p>
                                     <p>Diet: ${recipeInfo.dietLabels ? recipeInfo.dietLabels.join(', ') : 'N/A'}</p>
+                                    <p>Intolerances: ${recipeInfo.healthLabels ? recipeInfo.healthLabels.join(', ') : 'N/A'}</p>
                                     <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
                             `;
                             recipeList.appendChild(recipeItem);
@@ -126,6 +127,7 @@
                                     <p>${recipeInfo.dishType ? 'Category: ' + recipeInfo.dishType : 'Description: N/A'}</p>
                                     <p>Cuisine: ${recipeInfo.cuisineType ? recipeInfo.cuisineType.join(', ') : 'N/A'}</p>
                                     <p>Diet: ${recipeInfo.dietLabels ? recipeInfo.dietLabels.join(', ') : 'N/A'}</p>
+                                    <p>Intolerances: ${recipeInfo.healthLabels ? recipeInfo.healthLabels.join(', ') : 'N/A'}</p>
                                     <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
                             `;
                             popularRecipeList.appendChild(recipeItem);
