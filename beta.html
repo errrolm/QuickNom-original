@@ -1,39 +1,88 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="assets/logo.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <meta name="description" content="Search your favorite recipes."> 
-    <!-- Icons. -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" />
-    <link rel="stylesheet" href="style.css">
-
     <title>QuickNom</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link href="https://kit.fontawesome.com/b06b850e74.js" crossorigin="anonymous" rel="stylesheet">
 </head>
 <body>
-    <br>
-    <h1 class="font-primary">QuickNom</h1>
-    <!--I KNEW YOU'D COME HERE. GUESS WHAT, I GOT YOUR IP ADDRESS SINCE YOU OPENED THE CONSOLE. COPYING CODE ISN'T THE WAY TO GO MAN.-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
-    <div class="add-recipe">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" id="ingredientInput" placeholder="Let's cook some magic" onkeydown="if(event.key==='Enter') searchRecipesByIngredients()">
-            <button onclick="searchRecipesByIngredients()" class="search-btn">Search</button>
+    <div class="container mt-5">
+        <h1 class="font-primary">QuickNom</h1>
+        <div class="alert alert-danger d-none" id="errorAlert" role="alert">
+            No results found or an error occurred.
         </div>
-        <br>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="ingredientInput" placeholder="What's in your fridge today?" onkeydown="if(event.key==='Enter') searchRecipesByIngredients()">
+            <button onclick="searchRecipesByIngredients()" class="btn btn-primary"><i class="fas fa-search"></i> Search</button>
+        </div>
+        <div class="recipe-list" id="search-results">
+            <!-- Recipe cards will be added here dynamically -->
+        </div>
     </div>
-    <h3 class="font-primary" style="padding-left: 20px;">Here are some popular recipes</h3>
-    <div class="recipe-list" id="popular-recipes">
-    </div>
-    <div class="d-flex justify-content-center align-items-center">
-        <button onclick="loadMoreRecipes()" class="load-more-btn">Discover more delights</button>
-    </div>
-    <footer style="text-align: center; margin-top: 20px;" class="font-primary">
-        Made with <img src="assets/takeout-box.png" style="width: 26px; height: 26px;"> by <a href="https://errolm.netlify.app">ErrolM</a><br>
-    </footer>
 
+    <script>
+        function searchRecipesByIngredients() {
+            const userInput = document.getElementById('ingredientInput').value;
+            const apiKey = '3923ba0f5cd24c9cbd5dc83427cc9bbe';
+            const apiUrl = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${apiKey}&ingredients=${userInput}&number=10`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    displaySearchResults(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching data: ', error);
+                    displayErrorAlert();
+                });
+        }
+
+        function displaySearchResults(results) {
+            const searchResultsContainer = document.getElementById('search-results');
+            searchResultsContainer.innerHTML = '';
+
+            if (results.length === 0) {
+                displayErrorAlert();
+                return;
+            }
+
+            results.forEach(recipe => {
+                const recipeCard = document.createElement('div');
+                recipeCard.classList.add('card');
+
+                const image = document.createElement('img');
+                image.classList.add('card-img-top');
+                image.src = recipe.image;
+
+                const cardBody = document.createElement('div');
+                cardBody.classList.add('card-body');
+
+                const recipeTitle = document.createElement('h5');
+                recipeTitle.classList.add('card-title');
+                recipeTitle.textContent = recipe.title;
+
+                const dietInfo = document.createElement('p');
+                dietInfo.textContent = `Diet: ${recipe.diet}`;
+
+                cardBody.appendChild(image);
+                cardBody.appendChild(recipeTitle);
+                cardBody.appendChild(dietInfo);
+
+                recipeCard.appendChild(cardBody);
+                searchResultsContainer.appendChild(recipeCard);
+            });
+        }
+
+        function displayErrorAlert() {
+            const errorAlert = document.getElementById('errorAlert');
+            errorAlert.classList.remove('d-none');
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
