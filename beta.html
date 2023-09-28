@@ -69,6 +69,11 @@
                         // Display the error alert if no results are found
                         const errorAlert = document.getElementById('errorAlert');
                         errorAlert.classList.remove('d-none');
+
+                        // Hide the error message after 8 seconds (8000 milliseconds)
+                        setTimeout(() => {
+                            errorAlert.classList.add('d-none');
+                        }, 8000);
                     }
                 })
                 .catch(error => {
@@ -76,6 +81,11 @@
                     console.error("Error fetching recipe data:", error);
                     const errorAlert = document.getElementById('errorAlert');
                     errorAlert.classList.remove('d-none');
+
+                    // Hide the error message after 8 seconds (8000 milliseconds)
+                    setTimeout(() => {
+                        errorAlert.classList.add('d-none');
+                    }, 8000);
                 });
         }
 
