@@ -21,10 +21,16 @@
     <script>
         const edamamAppId = "2f4013c4";
         const edamamAppKey = "173b04b81fbfda990d7c78c089bb5569";
-        
+
+        // Function to open the recipe URL in a new tab
+        function openRecipeUrl(url) {
+            window.open(url, "_blank");
+        }
+
         function searchRecipesByIngredients() {
             const ingredients = document.getElementById("ingredientInput").value;
             const apiUrl = `https://api.edamam.com/search?q=${encodeURIComponent(ingredients)}&app_id=${edamamAppId}&app_key=${edamamAppKey}`;
+            const errorAlert = document.getElementById('errorAlert');
 
             fetch(apiUrl)
                 .then(response => response.json())
@@ -34,48 +40,36 @@
 
                     if (data.hits && data.hits.length > 0) {
                         data.hits.forEach(recipe => {
-                            const recipeInfo = recipe.recipe;
+                            // ...
 
-                            // Determine the healthiness category based on your criteria
-                            let healthinessClass;
-                            const caloriesPerServing = recipeInfo.calories / recipeInfo.yield;
+                            // Create a button to view the recipe
+                            const viewRecipeBtn = document.createElement("button");
+                            viewRecipeBtn.textContent = "View Recipe";
+                            viewRecipeBtn.classList.add("btn", "btn-primary");
+                            viewRecipeBtn.addEventListener("click", () => openRecipeUrl(recipeInfo.url));
 
-                            if (caloriesPerServing < 200) {
-                                healthinessClass = "healthy";
-                            } else if (caloriesPerServing < 400) {
-                                healthinessClass = "moderate";
-                            } else {
-                                healthinessClass = "less-healthy";
-                            }
-
-                            const recipeItem = document.createElement("div");
-                            recipeItem.classList.add("recipe-item");
-                            recipeItem.innerHTML = `
-                                <center>
-                                    <h3>${recipeInfo.label}</h3>
-                                    <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}"></center><br>
-                                    <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
-                                    <p>Servings: ${recipeInfo.yield}</p>
-                                    <p>Healthiness: 
-                                        <span class="traffic-light-circle ${healthinessClass}-circle"></span>
-                                        <span class="${healthinessClass}">${healthinessClass}</span>
-                                    </p>
-                                    <p>${recipeInfo.dishType ? 'Category: ' + recipeInfo.dishType : 'Description: N/A'}</p>
-                                    <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
-                            `;
-                            recipeList.appendChild(recipeItem);
+                            // Append the button to the recipe item
+                            recipeItem.appendChild(viewRecipeBtn);
                         });
                     } else {
                         // Display the error alert if no results are found
-                        const errorAlert = document.getElementById('errorAlert');
                         errorAlert.classList.remove('d-none');
+
+                        // Hide the error message after 6 seconds (6000 milliseconds)
+                        setTimeout(() => {
+                            errorAlert.classList.add('d-none');
+                        }, 6000);
                     }
                 })
                 .catch(error => {
                     // Display the error alert if an error occurs
                     console.error("Error fetching recipe data:", error);
-                    const errorAlert = document.getElementById('errorAlert');
                     errorAlert.classList.remove('d-none');
+
+                    // Hide the error message after 6 seconds (6000 milliseconds)
+                    setTimeout(() => {
+                        errorAlert.classList.add('d-none');
+                    }, 6000);
                 });
         }
 
@@ -91,36 +85,16 @@
 
                     if (data.hits && data.hits.length > 0) {
                         data.hits.forEach(recipe => {
-                            const recipeInfo = recipe.recipe;
+                            // ...
 
-                            // Determine the healthiness category based on your criteria
-                            let healthinessClass;
-                            const caloriesPerServing = recipeInfo.calories / recipeInfo.yield;
+                            // Create a button to view the recipe
+                            const viewRecipeBtn = document.createElement("button");
+                            viewRecipeBtn.textContent = "View Recipe";
+                            viewRecipeBtn.classList.add("btn", "btn-primary");
+                            viewRecipeBtn.addEventListener("click", () => openRecipeUrl(recipeInfo.url));
 
-                            if (caloriesPerServing < 200) {
-                                healthinessClass = "healthy";
-                            } else if (caloriesPerServing < 400) {
-                                healthinessClass = "moderate";
-                            } else {
-                                healthinessClass = "less-healthy";
-                            }
-
-                            const recipeItem = document.createElement("div");
-                            recipeItem.classList.add("recipe-item");
-                            recipeItem.innerHTML = `
-                                <center>
-                                    <h3>${recipeInfo.label}</h3>
-                                    <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}"></center><br>
-                                    <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
-                                    <p>Servings: ${recipeInfo.yield}</p>
-                                    <p>Healthiness: 
-                                        <span class="traffic-light-circle ${healthinessClass}-circle"></span>
-                                        <span class="${healthinessClass}">${healthinessClass}</span>
-                                    </p>
-                                    <p>${recipeInfo.dishType ? 'Category: ' + recipeInfo.dishType : 'Description: N/A'}</p>
-                                    <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
-                            `;
-                            popularRecipeList.appendChild(recipeItem);
+                            // Append the button to the recipe item
+                            recipeItem.appendChild(viewRecipeBtn);
                         });
 
                         nextPage++; 
@@ -146,7 +120,7 @@
         </div>
         <br>
     </div>
-    <!-- Modified Error Alert -->
+    <!-- Updated Error Alert with Icon -->
     <div class="alert alert-danger d-none" id="errorAlert" role="alert" style="width: 80%; margin: 0 auto; text-align: center;">
         <span class="material-symbols-outlined" style="font-size: 24px;">error</span> No results found or an error occurred.
     </div>
