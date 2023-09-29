@@ -19,8 +19,7 @@
     <!--I KNEW YOU'D COME HERE. GUESS WHAT, I GOT YOUR IP ADDRESS SINCE YOU OPENED THE CONSOLE. COPYING CODE ISN'T THE WAY TO GO MAN.-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script>
-
-        const majorIntolerances = ["Gluten-Free", "Dairy-Free", "Nut-Free"];
+        const commonIntolerances = ["Nuts", "Gluten", "Dairy", "Soy", "Eggs"];
 
         const edamamAppId = "2f4013c4";
         const edamamAppKey = "173b04b81fbfda990d7c78c089bb5569";
@@ -50,8 +49,10 @@
                                 healthinessClass = "less-healthy";
                             }
 
-                            const majorIntolerancesList = recipeInfo.healthLabels.filter(label => majorIntolerances.includes(label));
-                            const intolerancesText = majorIntolerancesList.length > 0 ? majorIntolerancesList.join(', ') : 'N/A';
+                            // Check for common intolerances
+                            const intolerances = commonIntolerances.filter(intolerance => recipeInfo.ingredientLines.some(line => line.toLowerCase().includes(intolerance.toLowerCase())));
+
+                            const intolerancesText = intolerances.length > 0 ? intolerances.join(', ') : 'N/A';
 
                             const recipeItem = document.createElement("div");
                             recipeItem.classList.add("recipe-item");
@@ -119,8 +120,10 @@
                                 healthinessClass = "less-healthy";
                             }
 
-                            const majorIntolerancesList = recipeInfo.healthLabels.filter(label => majorIntolerances.includes(label));
-                            const intolerancesText = majorIntolerancesList.length > 0 ? majorIntolerancesList.join(', ') : 'N/A';
+                            // Check for common intolerances
+                            const intolerances = commonIntolerances.filter(intolerance => recipeInfo.ingredientLines.some(line => line.toLowerCase().includes(intolerance.toLowerCase())));
+
+                            const intolerancesText = intolerances.length > 0 ? intolerances.join(', ') : 'N/A';
 
                             const recipeItem = document.createElement("div");
                             recipeItem.classList.add("recipe-item");
@@ -160,6 +163,7 @@
             e.preventDefault();
         });
     </script>
+    
     <div class="add-recipe">
         <div class="input-group mb-3">
             <input type="text" class="form-control" id="ingredientInput" placeholder="What's in your fridge today?" onkeydown="if(event.key==='Enter') searchRecipesByIngredients()">
