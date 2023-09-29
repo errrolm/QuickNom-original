@@ -49,9 +49,9 @@
                                 healthinessClass = "less-healthy";
                             }
 
-                            // Check for common intolerances (case-insensitive)
+                            // Check for common intolerances in healthLabels
                             const intolerances = commonIntolerances.filter(intolerance => 
-                                recipeInfo.ingredientLines.some(line => line.toLowerCase().includes(intolerance.toLowerCase()))
+                                recipeInfo.healthLabels.includes(intolerance)
                             );
 
                             const intolerancesText = intolerances.length > 0 ? intolerances.join(', ') : 'N/A';
@@ -122,9 +122,9 @@
                                 healthinessClass = "less-healthy";
                             }
 
-                            // Check for common intolerances (case-insensitive)
+                            // Check for common intolerances in healthLabels
                             const intolerances = commonIntolerances.filter(intolerance => 
-                                recipeInfo.ingredientLines.some(line => line.toLowerCase().includes(intolerance.toLowerCase()))
+                                recipeInfo.healthLabels.includes(intolerance)
                             );
 
                             const intolerancesText = intolerances.length > 0 ? intolerances.join(', ') : 'N/A';
