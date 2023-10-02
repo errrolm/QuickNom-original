@@ -7,9 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <meta name="description" content="Search your favorite recipes."> 
     <!-- Icons. -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" />
     <script src="https://kit.fontawesome.com/b06b850e74.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"  rel="stylesheet" />
 
     <title>QuickNom</title>
 </head>
@@ -18,166 +19,43 @@
     <h1 class="font-primary">QuickNom</h1>
     <!--I KNEW YOU'D COME HERE. GUESS WHAT, I GOT YOUR IP ADDRESS SINCE YOU OPENED THE CONSOLE. COPYING CODE ISN'T THE WAY TO GO MAN.-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script>
-
-        const majorIntolerances = ["Gluten-Free", "Dairy-Free", "Nut-Free"];
-
-        const edamamAppId = "2f4013c4";
-        const edamamAppKey = "173b04b81fbfda990d7c78c089bb5569";
-        
-        function searchRecipesByIngredients() {
-            const ingredients = document.getElementById("ingredientInput").value;
-            const apiUrl = `https://api.edamam.com/search?q=${encodeURIComponent(ingredients)}&app_id=${edamamAppId}&app_key=${edamamAppKey}`;
-
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const recipeList = document.querySelector(".recipe-list");
-                    recipeList.innerHTML = "";
-
-                    if (data.hits && data.hits.length > 0) {
-                        data.hits.forEach(recipe => {
-                            const recipeInfo = recipe.recipe;
-
-                            let healthinessClass;
-                            const caloriesPerServing = recipeInfo.calories / recipeInfo.yield;
-
-                            if (caloriesPerServing < 200) {
-                                healthinessClass = "healthy";
-                            } else if (caloriesPerServing < 400) {
-                                healthinessClass = "moderate";
-                            } else {
-                                healthinessClass = "less-healthy";
-                            }
-
-                            const majorIntolerancesList = recipeInfo.healthLabels.filter(label => majorIntolerances.includes(label));
-                            const intolerancesText = majorIntolerancesList.length > 0 ? majorIntolerancesList.join(', ') : 'N/A';
-
-                            const recipeItem = document.createElement("div");
-                            recipeItem.classList.add("recipe-item");
-                            recipeItem.innerHTML = `
-                                <center>
-                                    <h3>${recipeInfo.label}</h3>
-                                    <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}"></center><br>
-                                    <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
-                                    <p>Servings: ${recipeInfo.yield}</p>
-                                    <p>Healthiness: 
-                                        <span class="traffic-light-circle ${healthinessClass}-circle"></span>
-                                        <span class="${healthinessClass}">${healthinessClass}</span>
-                                    </p>
-                                    <p>${recipeInfo.dishType ? 'Category: ' + recipeInfo.dishType : 'Description: N/A'}</p>
-                                    <p>Cuisine: ${recipeInfo.cuisineType ? recipeInfo.cuisineType.join(', ') : 'N/A'}</p>
-                                    <p>Diet: ${recipeInfo.dietLabels ? recipeInfo.dietLabels.join(', ') : 'N/A'}</p>
-                                    <p>Intolerances: ${intolerancesText}</p>
-                                    <p>Preparation Time: ${recipeInfo.totalTime ? recipeInfo.totalTime + ' minutes' : 'Data not available at the moment.'} minutes</p> 
-                                    <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
-                            `;
-                            recipeList.appendChild(recipeItem);
-                        });
-                    } else {
-                        const errorAlert = document.getElementById('errorAlert');
-                        errorAlert.classList.remove('d-none');
-
-                        setTimeout(() => {
-                            errorAlert.classList.add('d-none');
-                        }, 8000);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error fetching recipe data:", error);
-                    const errorAlert = document.getElementById('errorAlert');
-                    errorAlert.classList.remove('d-none');
-
-                    setTimeout(() => {
-                        errorAlert.classList.add('d-none');
-                    }, 8000);
-                });
-        }
-
-        let nextPage = 1;
-
-        function loadMoreRecipes() {
-            const popularRecipesUrl = `https://api.edamam.com/search?q=popular&app_id=${edamamAppId}&app_key=${edamamAppKey}&from=${nextPage * 10}&to=${(nextPage + 1) * 10}`;
-
-            fetch(popularRecipesUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const popularRecipeList = document.getElementById("popular-recipes");
-
-                    if (data.hits && data.hits.length > 0) {
-                        data.hits.forEach(recipe => {
-                            const recipeInfo = recipe.recipe;
-
-                            let healthinessClass;
-                            const caloriesPerServing = recipeInfo.calories / recipeInfo.yield;
-
-                            if (caloriesPerServing < 200) {
-                                healthinessClass = "healthy";
-                            } else if (caloriesPerServing < 400) {
-                                healthinessClass = "moderate";
-                            } else {
-                                healthinessClass = "less-healthy";
-                            }
-
-                            const majorIntolerancesList = recipeInfo.healthLabels.filter(label => majorIntolerances.includes(label));
-                            const intolerancesText = majorIntolerancesList.length > 0 ? majorIntolerancesList.join(', ') : 'N/A';
-
-                            const recipeItem = document.createElement("div");
-                            recipeItem.classList.add("recipe-item");
-                            recipeItem.innerHTML = `
-                                <center>
-                                    <h3>${recipeInfo.label}</h3>
-                                    <img class="recipe-image" src="${recipeInfo.image}" alt="${recipeInfo.label}"></center><br>
-                                    <p>Calories: ${recipeInfo.calories.toFixed(2)}</p>
-                                    <p>Servings: ${recipeInfo.yield}</p>
-                                    <p>Healthiness: 
-                                        <span class="traffic-light-circle ${healthinessClass}-circle"></span>
-                                        <span class="${healthinessClass}">${healthinessClass}</span>
-                                    </p>
-                                    <p>${recipeInfo.dishType ? 'Category: ' + recipeInfo.dishType : 'Description: N/A'}</p>
-                                    <p>Cuisine: ${recipeInfo.cuisineType ? recipeInfo.cuisineType.join(', ') : 'N/A'}</p>
-                                    <p>Diet: ${recipeInfo.dietLabels ? recipeInfo.dietLabels.join(', ') : 'N/A'}</p>
-                                    <p>Intolerances: ${intolerancesText}</p>
-                                    <p>Preparation Time: ${recipeInfo.totalTime ? recipeInfo.totalTime + ' minutes' : 'Data not available at the moment.'}</p> 
-                                    <a href="${recipeInfo.url}" target="_blank">View Recipe</a>
-                            `;
-                            popularRecipeList.appendChild(recipeItem);
-                        });
-
-                        nextPage++; 
-                    } else {
-                        document.querySelector(".load-more-btn").style.display = "none";
-                    }
-                })
-                .catch(error => {
-                    console.error("Error fetching popular recipe data:", error);
-                });
-        }
-
-        document.addEventListener("DOMContentLoaded", loadMoreRecipes);
-
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
-    </script>
+    <script src="script.js"></script>
     <div class="add-recipe">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id="ingredientInput" placeholder="What's in your fridge today?" onkeydown="if(event.key==='Enter') searchRecipesByIngredients()">
-            <button onclick="searchRecipesByIngredients()" class="search-btn"><i class="fa-solid fa-magnifying-glass fa-fade"></i></button>
+            <!-- <input type="text" class="form-control" id="ingredientInput" placeholder="What's in your fridge today?" onkeydown="if(event.key==='Enter') searchRecipesByIngredients()">
+            <button onclick="searchRecipesByIngredients()" class="search-btn"><i class="fa-solid fa-magnifying-glass fa-fade"></i></button> -->
+
+            <form>   
+                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="search" onkeydown="if(event.key==='Enter') searchRecipesByIngredients()" id="ingredientInput" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="What's in your fridge today?" required>
+                    <button type="submit" onclick="searchRecipesByIngredients()" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                </div>
+            </form>
+
         </div>
         <br>
-    </div>
-    <div class="alert alert-danger d-none" id="errorAlert" role="alert" style="width: 80%; margin: 0 auto; text-align: center;">
-        <i class="fa-solid fa-circle-exclamation fa-fade"></i> No results found or an error occurred.
     </div>
     <h3 class="font-primary" style="padding-left: 20px;">Here are some popular recipes</h3>
     <div class="recipe-list" id="popular-recipes">
     </div>
     <div class="d-flex justify-content-center align-items-center">
-        <button onclick="loadMoreRecipes()" class="load-more-btn">Discover more delights</button>
+        <!-- <button onclick="loadMoreRecipes()" class="load-more-btn">Discover more delights</button> -->
+
+        <button type="button"  onclick="loadMoreRecipes()" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Discover more delights</button>
+
+
     </div>
     <footer style="text-align: center; margin-top: 20px;" class="font-primary">
         Made with <img src="assets/takeout-box.png" style="width: 26px; height: 26px;"> by <a href="https://errolm.netlify.app">ErrolM</a><br>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
+
 </body>
 </html>
