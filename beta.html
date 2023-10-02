@@ -38,10 +38,9 @@
     <div class="recipe-list" id="popular-recipes">
     </div>
 
-    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <button type="button" style="width: 90%; margin: 0 auto;" onclick="loadMoreRecipes()" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Discover More Delights</button>
+    <div class="center-button-container">
+        <button type="button" onclick="loadMoreRecipes()" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Discover More Delights</button>
     </div>
-
     
 
     <footer style="text-align: center; margin-top: 20px; margin-bottom: 20px; font-size: 20px; color: white;" class="font-primary">
@@ -183,4 +182,14 @@
         color: #6EA8FE;
     }
 
+    .center-button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+    .center-button-container button {
+        width: 90%;
+    }
 </style>
