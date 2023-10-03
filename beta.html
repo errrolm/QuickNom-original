@@ -34,7 +34,7 @@
         </div>
         <br>
     </div>
-    <h3 class="font-primary" style="padding-left: 20px;">Here are some popular recipes</h3>
+    <h3 class="font-primary" style="padding-left: 20px; color: #fff;">Here are some popular recipes</h3>
     <div class="recipe-list" id="popular-recipes">
     </div>
 
@@ -43,7 +43,7 @@
     </div>
 
     <footer style="text-align: center; margin-top: 20px; margin-bottom: 20px; font-size: 20px; color: white;" class="font-primary">
-        Made with 🥡 by <a href="https://errolm.netlify.app">ErrolM</a><br>
+        Made with 🥡 by <a href="https://errolm.netlify.app" style="color: white;">ErrolM</a><br>
     </footer>
 
     <script>
@@ -100,7 +100,6 @@
                         data.hits.forEach(recipe => {
                             const recipeInfo = recipe.recipe;
 
-                            // Determine the healthiness category based on your criteria
                             let healthinessClass;
                             const caloriesPerServing = recipeInfo.calories / recipeInfo.yield;
 
@@ -182,7 +181,7 @@
     p{
         font-size: 16px;
         margin-top: 10px;
-        color: #9CA3AF;
+        color: #fff; /* Set white text color */
     }
 
     .view-recipe-link{
@@ -220,3 +219,5 @@
         }
 
     </style>
+</body>
+</html>
