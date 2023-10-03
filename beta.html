@@ -170,54 +170,45 @@
     </script>
 
     <style>
-    .font-primary{
-        font-size: 25px;
-    }
-
-    h3{
-        color: #fff;
-    }
-
-    p{
-        font-size: 16px;
-        margin-top: 10px;
-        color: #fff; /* Set white text color */
-    }
-
-    .view-recipe-link{
-        color: #6EA8FE;
-    }
-
-    .center-button-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 8vh;
-        }
-
-    .center-button-container button {
-        width: 90%;
-    }
-
-    .recipe-list .mb-4 {
-            margin-bottom: 1rem;
-        }
-
-        @media (min-width: 768px) {
-            .recipe-list {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 1rem;
-                justify-items: center;
-            }
-        }
-
-        @media (max-width: 767px) {
-            .recipe-list .w-90 {
-                width: 90%;
-            }
-        }
+   
 
     </style>
 </body>
 </html>
+.font-primary {
+    font-size: 25px;
+}
+
+h3 {
+    color: #fff;
+}
+
+p {
+    font-size: 16px;
+    margin-top: 10px;
+    color: #fff; /* Set white text color */
+}
+
+.view-recipe-link {
+    color: #6EA8FE;
+}
+
+.center-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8vh;
+}
+
+.center-button-container button {
+    width: 90%;
+}
+
+.recipe-list .mb-4 {
+    margin-bottom: 1rem;
+}
+
+.recipe-list {
+    width: 90%; /* Set the width of the container to 90% for all screen sizes */
+    margin: 0 auto; /* Center the container horizontally */
+}
