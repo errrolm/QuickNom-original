@@ -139,7 +139,7 @@
             const recipeList = document.getElementById("popular-recipes");
 
             const recipeCard = document.createElement("div");
-            recipeCard.classList.add("max-w-sm", "bg-white", "border", "border-gray-200", "rounded-lg", "shadow", "dark:bg-gray-800", "dark:border-gray-700");
+            recipeCard.classList.add("max-w-sm", "border", "border-gray-200", "rounded-lg", "shadow", "dark:bg-gray-800", "dark:border-gray-700");
 
             recipeCard.innerHTML = `
                 <a href="${recipeInfo.url}">
@@ -165,7 +165,11 @@
                 </div>
             `;
 
-            recipeList.appendChild(recipeCard);
+            const cardContainer = document.createElement("div");
+            cardContainer.classList.add("mb-4", "flex", "justify-center");
+            cardContainer.appendChild(recipeCard);
+
+            recipeList.appendChild(cardContainer);
         }
     </script>
 
@@ -193,6 +197,10 @@
     .center-button-container button {
         width: 90%;
     }
+
+    .recipe-list .mb-4 {
+            margin-bottom: 1rem;
+        }
     </style>
 </body>
 </html>
