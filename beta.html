@@ -174,7 +174,7 @@
     </script>
 
     <style>
-            .font-primary{
+    .font-primary{
         font-size: 25px;
     }
 
@@ -201,6 +201,14 @@
     .recipe-list .mb-4 {
             margin-bottom: 1rem;
         }
+
+        @media (min-width: 768px) {
+            .recipe-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1rem;
+                justify-items: center;
+            }
+        }
+
     </style>
-</body>
-</html>
