@@ -28,7 +28,7 @@
                         </svg>
                     </div>
                     <input type="search" id="ingredientInput" class="block w-full p-4 pl-10 text-gray-200 bg-gray-700 border border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="What's in your fridge today?" required>
-                    <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                    <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 color-purple">Search</button>
                 </div>
             </form>
         </div>
@@ -42,7 +42,7 @@
         <button type="button" onclick="loadMoreRecipes()" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Discover More Delights</button>
     </div>
 
-    <footer style="text-align: center; margin-top: 20px; margin-bottom: 20px; font-size: 20px; color: white;" class="font-primary">
+    <footer style="text-align: center; margin-top: 20px; margin-bottom: 20px; font-size: 20px; color: white;" class="font-primary color-purple">
         Made with 🥡 by <a href="https://errolm.netlify.app" style="color: white;">ErrolM</a><br>
     </footer>
 
@@ -170,8 +170,12 @@
     </script>
 
     <style>
-   .font-primary {
+        .font-primary {
             font-size: 25px;
+        }
+
+        .color-purple{
+            background: #6C2BD9;
         }
 
         h3 {
