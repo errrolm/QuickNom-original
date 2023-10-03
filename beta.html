@@ -64,7 +64,6 @@
                         data.hits.forEach(recipe => {
                             const recipeInfo = recipe.recipe;
 
-                            // Determine the healthiness category based on your criteria
                             let healthinessClass;
                             const caloriesPerServing = recipeInfo.calories / recipeInfo.yield;
 
@@ -76,7 +75,6 @@
                                 healthinessClass = "less-healthy";
                             }
 
-                            // Call the recipeItem function to create and append the recipe card
                             recipeItem(recipeInfo, healthinessClass);
                         });
                     } else {
@@ -134,7 +132,6 @@
             e.preventDefault();
         });
 
-        // Function to create and append recipe card
         function recipeItem(recipeInfo, healthinessClass) {
             const recipeList = document.getElementById("popular-recipes");
 
@@ -147,7 +144,7 @@
                 </a>
                 <div class="p-5">
                     <a href="${recipeInfo.url}">
-                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">${recipeInfo.label}</h5>
+                        <h3 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">${recipeInfo.label}</h3>
                     </a>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Calories: ${recipeInfo.calories.toFixed(2)}</p>
                     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Servings: ${recipeInfo.yield}</p>
@@ -178,9 +175,14 @@
         font-size: 25px;
     }
 
+    h3{
+        color: #fff;
+    }
+
     p{
         font-size: 16px;
-        margin-top: 10px
+        margin-top: 10px;
+        color: #9CA3AF;
     }
 
     .view-recipe-link{
