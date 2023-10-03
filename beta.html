@@ -35,7 +35,7 @@
         <br>
     </div>
     <h3 class="font-primary" style="padding-left: 20px;">Here are some popular recipes</h3>
-    <div class="recipe-list" id="popular-recipes">
+    <div class="recipe-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="popular-recipes">
     </div>
 
     <div class="center-button-container">
@@ -173,12 +173,12 @@
         .font-primary {
             font-size: 25px;
             color: #DCD6F7;
-
         }
 
         .recipe-card-border{
             border: 3px solid #6C2BD9;
         }
+
 
         .color-purple{
             background: #6C2BD9;
@@ -218,6 +218,24 @@
             margin: 0 auto; /* Center the container horizontally */
         }
 
+        /* Define grid columns for different screen sizes */
+        @media (min-width: 640px) {
+            .recipe-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columns on small screens */
+            }
+        }
+
+        @media (min-width: 768px) {
+            .recipe-list {
+                grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 columns on medium screens */
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .recipe-list {
+                grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 columns on large screens */
+            }
+        }
     </style>
 </body>
 </html>
