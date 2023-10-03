@@ -126,7 +126,6 @@
                                 healthinessClass = "less-healthy";
                             }
 
-                            // Call the recipeItem function to create and append the recipe card
                             recipeItem(recipeInfo, healthinessClass);
                         });
 
@@ -210,7 +209,7 @@
         p {
             font-size: 16px;
             margin-top: 10px;
-            color: #fff; /* Set white text color */
+            color: #fff; 
         }
 
         .view-recipe-link {
@@ -233,26 +232,25 @@
         }
 
         .recipe-list {
-            width: 90%; /* Set the width of the container to 90% for all screen sizes */
-            margin: 0 auto; /* Center the container horizontally */
+            width: 90%; 
+            margin: 0 auto;
         }
 
-        /* Define grid columns for different screen sizes */
         @media (min-width: 640px) {
             .recipe-list {
-                grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columns on small screens */
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
         @media (min-width: 768px) {
             .recipe-list {
-                grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 columns on medium screens */
+                grid-template-columns: repeat(3, minmax(0, 1fr));
             }
         }
 
         @media (min-width: 1024px) {
             .recipe-list {
-                grid-template-columns: repeat(4, minmax(0, 1fr)); /* 4 columns on large screens */
+                grid-template-columns: repeat(4, minmax(0, 1fr)); 
             }
         }
     </style>
