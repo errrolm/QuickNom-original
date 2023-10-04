@@ -105,11 +105,11 @@
                             let healthinessClass;
                             const caloriesPerServing = recipeInfo.calories / recipeInfo.yield;
                             if (caloriesPerServing < 200) {
-                                healthinessClass = "healthy";
+                                healthinessClass = "Healthy";
                             } else if (caloriesPerServing < 400) {
-                                healthinessClass = "moderate";
+                                healthinessClass = "Moderate";
                             } else {
-                                healthinessClass = "less-healthy";
+                                healthinessClass = "Less-healthy";
                             }
                             recipeItem(recipeInfo, healthinessClass);
                         });
