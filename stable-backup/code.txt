@@ -4,37 +4,216 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="assets/logo.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <meta name="description" content="Search your favorite recipes."> 
+    <meta name="description" content="Search for your favorite recipes."> 
     <!-- Icons. -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,200,0,0" />
     <script src="https://kit.fontawesome.com/b06b850e74.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"  rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
-
     <title>QuickNom</title>
 </head>
 <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
     <br>
     <h1 class="font-primary">QuickNom</h1>
     <!--I KNEW YOU'D COME HERE. GUESS WHAT, I GOT YOUR IP ADDRESS SINCE YOU OPENED THE CONSOLE. COPYING CODE ISN'T THE WAY TO GO MAN.-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
     <div class="add-recipe">
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id="ingredientInput" placeholder="What's in your fridge today?" onkeydown="if(event.key==='Enter') searchRecipesByIngredients()">
-            <button onclick="searchRecipesByIngredients()" class="search-btn"><i class="fa-solid fa-magnifying-glass fa-fade"></i></button>
+            <form onsubmit="event.preventDefault(); searchRecipesByIngredients();">
+                <label for="default-search" class="mb-2 font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="search" id="ingredientInput" class="block w-full p-4 pl-10 text-gray-200 bg-gray-700 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" placeholder="What's in your fridge today?" required>
+                    <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg px-4 py-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 color-purple">Search</button>
+                </div>
+            </form>
         </div>
         <br>
     </div>
-    <h3 class="font-primary" style="padding-left: 20px;">Here are some popular recipes</h3>
-    <div class="recipe-list" id="popular-recipes">
+    <div id="alert-1" class="flex items-center p-4 mb-4 text-blue-800 dark:bg-gray-800 dark:text-blue-400 rounded-lg bg-blue-50" style="width: 90%; margin-left: 20px;" role="alert">
+        <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+        </svg>
+        <span class="sr-only">Info</span>
+        <div class="ml-3 text-sm font-medium">
+          QuickNom just recieved a brand new look.
+        </div>
+          <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-1" aria-label="Close">
+            <span class="sr-only">Close</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+        </button>
+      </div>
+    <h3 class="font-primary" style="padding-left: 20px; font-size: 25px;">Here are some popular recipes</h3><br>
+    <div class="recipe-list grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="popular-recipes">
     </div>
-    <div class="d-flex justify-content-center align-items-center">
-        <button onclick="loadMoreRecipes()" class="load-more-btn">Discover more delights</button>
+    <div class="center-button-container">
+        <button type="button" onclick="loadMoreRecipes()" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Discover More Delights</button>
     </div>
-    <footer style="text-align: center; margin-top: 20px;" class="font-primary">
-        Made with <img src="assets/takeout-box.png" style="width: 26px; height: 26px;"> by <a href="https://errolm.netlify.app">ErrolM</a><br>
+    <footer style="text-align: center; margin-top: 20px; margin-bottom: 20px; font-size: 20px; color: white;" class="font-primary">
+        Made with 🥡 by <a href="https://errolm.netlify.app" style="color: #6C2BD9;">ErrolM</a><br>
     </footer>
-
+    <script>
+        const edamamAppId = "2f4013c4";
+        const edamamAppKey = "173b04b81fbfda990d7c78c089bb5569";
+        function searchRecipesByIngredients() {
+            const ingredients = document.getElementById("ingredientInput").value;
+            const apiUrl = `https://api.edamam.com/search?q=${encodeURIComponent(ingredients)}&app_id=${edamamAppId}&app_key=${edamamAppKey}`;
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const recipeList = document.querySelector(".recipe-list");
+                    recipeList.innerHTML = "";
+                    if (data.hits && data.hits.length > 0) {
+                        data.hits.forEach(recipe => {
+                            const recipeInfo = recipe.recipe;
+                            let healthinessClass;
+                            const caloriesPerServing = recipeInfo.calories / recipeInfo.yield;
+                            if (caloriesPerServing < 200) {
+                                healthinessClass = "healthy";
+                            } else if (caloriesPerServing < 400) {
+                                healthinessClass = "moderate";
+                            } else {
+                                healthinessClass = "less-healthy";
+                            }
+                            recipeItem(recipeInfo, healthinessClass);
+                        });
+                    } else {
+                        recipeList.innerHTML = "No results found. Try different ingredients.";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching recipe data:", error);
+                });
+        }
+        let nextPage = 1;
+        function loadMoreRecipes() {
+            const popularRecipesUrl = `https://api.edamam.com/search?q=popular&app_id=${edamamAppId}&app_key=${edamamAppKey}&from=${nextPage * 10}&to=${(nextPage + 1) * 10}`;
+            fetch(popularRecipesUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const popularRecipeList = document.getElementById("popular-recipes");
+                    if (data.hits && data.hits.length > 0) {
+                        data.hits.forEach(recipe => {
+                            const recipeInfo = recipe.recipe;
+                            let healthinessClass;
+                            const caloriesPerServing = recipeInfo.calories / recipeInfo.yield;
+                            if (caloriesPerServing < 200) {
+                                healthinessClass = "healthy";
+                            } else if (caloriesPerServing < 400) {
+                                healthinessClass = "moderate";
+                            } else {
+                                healthinessClass = "less-healthy";
+                            }
+                            recipeItem(recipeInfo, healthinessClass);
+                        });
+                        nextPage++; 
+                    } else {
+                        document.querySelector(".load-more-btn").style.display = "none";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching popular recipe data:", error);
+                });
+        }
+        document.addEventListener("DOMContentLoaded", loadMoreRecipes);
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+        function recipeItem(recipeInfo, healthinessClass) {
+            const recipeList = document.getElementById("popular-recipes");
+            const recipeCard = document.createElement("div");
+            recipeCard.classList.add("max-w-sm", "border", "border-gray-200", "rounded-lg", "shadow", "dark:bg-gray-800", "dark:border-gray-700", "recipe-card-border");
+            recipeCard.innerHTML = `
+                <a href="${recipeInfo.url}">
+                    <img class="rounded-t-lg" src="${recipeInfo.image}" alt="${recipeInfo.label}" />
+                </a>
+                <div class="p-5">
+                    <a href="${recipeInfo.url}">
+                        <h3 class="mb-2 text-2xl font-bold tracking-tight text-white-900 dark:text-white font-light-purple">${recipeInfo.label}</h3>
+                    </a>
+                    <p class="mb-3 font-normal text-white-700 dark:text-white-400">Calories: ${recipeInfo.calories.toFixed(2)}</p>
+                    <p class="mb-3 font-normal text-white-700 dark:text-white-400">Servings: ${recipeInfo.yield}</p>
+                    <p class="mb-3 font-normal text-white-700 dark:text-white-400">Healthiness: 
+                        <span class="traffic-light-circle ${healthinessClass}-circle"></span>
+                        <span class="${healthinessClass}">${healthinessClass}</span>
+                    </p>
+                    <p class="mb-3 font-normal text-white-700 dark:text-white-400">${recipeInfo.dishType ? 'Category: ' + recipeInfo.dishType : 'Description: N/A'}</p>
+                    <a href="${recipeInfo.url}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 color-purple recipe-card-btn">Read Recipe</a>
+                </div>
+            `;
+            const cardContainer = document.createElement("div");
+            cardContainer.classList.add("mb-4", "flex", "justify-center");
+            cardContainer.appendChild(recipeCard);
+            recipeList.appendChild(cardContainer);
+        }
+    </script>
+    <style>
+        .font-primary {
+            font-size: 35px;
+            color: #DCD6F7;
+        }
+        .font-light-purple{
+            color: #dcd6f7;
+        }
+        .recipe-card-border{
+            border: 3px solid #6C2BD9;
+            background: #1f2937;
+        }
+        .recipe-card-btn{
+            text-align: center;
+        }
+        .color-purple{
+            background: #6C2BD9;
+        }
+        h3 {
+            color: #fff;
+        }
+        p {
+            font-size: 16px;
+            margin-top: 10px;
+            color: #fff; 
+        }
+        .view-recipe-link {
+            color: #6EA8FE;
+        }
+        .center-button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 8vh;
+        }
+        .center-button-container button {
+            width: 90%;
+        }
+        .recipe-list .mb-4 {
+            margin-bottom: 1rem;
+        }
+        .recipe-list {
+            width: 90%; 
+            margin: 0 auto;
+        }
+        @media (min-width: 640px) {
+            .recipe-list {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (min-width: 768px) {
+            .recipe-list {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        @media (min-width: 1024px) {
+            .recipe-list {
+                grid-template-columns: repeat(4, minmax(0, 1fr)); 
+            }
+        }
+    </style>
 </body>
 </html>
