@@ -141,7 +141,6 @@
                     <p class="mb-3 font-normal text-white-700 dark:text-white-400">Calories: ${recipeInfo.calories.toFixed(2)}</p>
                     <p class="mb-3 font-normal text-white-700 dark:text-white-400">Servings: ${recipeInfo.yield}</p>
                     <p class="mb-3 font-normal text-white-700 dark:text-white-400">Healthiness: 
-                        <span class="traffic-light-circle ${healthinessClass}-circle"></span>
                         <span class="${healthinessClass}">${healthinessClass}</span>
                     </p>
                     <p class="mb-3 font-normal text-white-700 dark:text-white-400">${recipeInfo.dishType ? 'Category: ' + recipeInfo.dishType : 'Description: N/A'}</p>
@@ -152,6 +151,9 @@
             cardContainer.classList.add("mb-4", "flex", "justify-center");
             cardContainer.appendChild(recipeCard);
             recipeList.appendChild(cardContainer);
+
+            //The thing in case.
+            //<span class="traffic-light-circle ${healthinessClass}-circle"></span>
         }
     </script>
     <style>
