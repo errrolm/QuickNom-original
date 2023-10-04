@@ -36,10 +36,7 @@
         <br>
     </div>
     <div id="alert-1" class="flex items-center p-4 mb-4 text-blue-800 dark:bg-gray-800 dark:text-blue-400 rounded-lg bg-blue-50" style="width: 90%; margin-left: 20px;" role="alert">
-        <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-        </svg>
-        <span class="sr-only">Info</span>
+        <i class="fa-solid fa-cake-candles fa-fade"></i>
         <div class="ml-3 text-sm font-medium">
           QuickNom just recieved a brand new look.
         </div>
@@ -76,11 +73,11 @@
                             let healthinessClass;
                             const caloriesPerServing = recipeInfo.calories / recipeInfo.yield;
                             if (caloriesPerServing < 200) {
-                                healthinessClass = "healthy";
+                                healthinessClass = "Healthy";
                             } else if (caloriesPerServing < 400) {
-                                healthinessClass = "moderate";
+                                healthinessClass = "Moderate";
                             } else {
-                                healthinessClass = "less-healthy";
+                                healthinessClass = "Less-healthy";
                             }
                             recipeItem(recipeInfo, healthinessClass);
                         });
@@ -105,11 +102,11 @@
                             let healthinessClass;
                             const caloriesPerServing = recipeInfo.calories / recipeInfo.yield;
                             if (caloriesPerServing < 200) {
-                                healthinessClass = "healthy";
+                                healthinessClass = "Healthy";
                             } else if (caloriesPerServing < 400) {
-                                healthinessClass = "moderate";
+                                healthinessClass = "Moderate";
                             } else {
-                                healthinessClass = "less-healthy";
+                                healthinessClass = "Less-healthy";
                             }
                             recipeItem(recipeInfo, healthinessClass);
                         });
@@ -141,7 +138,6 @@
                     <p class="mb-3 font-normal text-white-700 dark:text-white-400">Calories: ${recipeInfo.calories.toFixed(2)}</p>
                     <p class="mb-3 font-normal text-white-700 dark:text-white-400">Servings: ${recipeInfo.yield}</p>
                     <p class="mb-3 font-normal text-white-700 dark:text-white-400">Healthiness: 
-                        <span class="traffic-light-circle ${healthinessClass}-circle"></span>
                         <span class="${healthinessClass}">${healthinessClass}</span>
                     </p>
                     <p class="mb-3 font-normal text-white-700 dark:text-white-400">${recipeInfo.dishType ? 'Category: ' + recipeInfo.dishType : 'Description: N/A'}</p>
@@ -152,9 +148,14 @@
             cardContainer.classList.add("mb-4", "flex", "justify-center");
             cardContainer.appendChild(recipeCard);
             recipeList.appendChild(cardContainer);
+
+            //The thing in case.
+            //<span class="traffic-light-circle ${healthinessClass}-circle"></span>
         }
     </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,700&display=swap');
+
         .font-primary {
             font-size: 35px;
             color: #DCD6F7;
@@ -168,6 +169,7 @@
         }
         .recipe-card-btn{
             text-align: center;
+
         }
         .color-purple{
             background: #6C2BD9;
@@ -178,7 +180,8 @@
         p {
             font-size: 16px;
             margin-top: 10px;
-            color: #fff; 
+            color: #fff;
+            font-family: 'Nunito Sans', sans-serif;
         }
         .view-recipe-link {
             color: #6EA8FE;
