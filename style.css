@@ -1,74 +1,138 @@
-.font-primary {
-    font-size: 35px;
-    color: #DCD6F7;
-}
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Merriweather&family=Roboto&family=Roboto+Slab&family=Ubuntu&display=swap');
+/* NOT THE CSS CODE ATLEAST.*/
+        :root{
+            /* --background-color: #222831; */
+            --background-color: #111827;
+            --search-btn-color: #DCD6F7;
+            --feeling-lucky-btn-color: #A6B1E1;
+            --bold-font: 'Archivo Black', sans-serif;
+            --primary-color: #DCD6F7;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+        }
+        .font-primary{
+            font-family: var(--bold-font);
+            color: #DCD6F7;
+        }
+        h1 {
+            text-align: center;
+        }
+        .add-recipe {
+            text-align: center;
+            margin: 20px;
+        }
+        input[type="text"] {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .search-btn{
+            background-color: var(--search-btn-color);
+        }
+        
+        .feeling-lucky-btn{
+            background-color: var(--feeling-lucky-btn-color);
+        }
+        .recipe-list {
+            margin: 20px;
+        }
+        .recipe-item {
+            border: 2px solid #DCD6F7;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+ 
+        .recipe-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        a{
+            text-decoration: none;
+        }
 
-.font-light-purple{
-    color: #dcd6f7;
-}
-
-.recipe-card-border{
-    border: 3px solid #6C2BD9;
-    background: #1f2937;
-}
-
-.recipe-card-btn{
-    text-align: center;
-}
-
-
-.color-purple{
-    background: #6C2BD9;
-}
-
-h3 {
-    color: #fff;
-}
-
-p {
-    font-size: 16px;
-    margin-top: 10px;
-    color: #fff; 
-}
-
-.view-recipe-link {
-    color: #6EA8FE;
-}
-
-.center-button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 8vh;
-}
-
-.center-button-container button {
-    width: 90%;
-}
-
-.recipe-list .mb-4 {
-    margin-bottom: 1rem;
-}
-
-.recipe-list {
-    width: 90%; 
-    margin: 0 auto;
-}
-
-@media (min-width: 640px) {
-    .recipe-list {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-@media (min-width: 768px) {
-    .recipe-list {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-}
-
-@media (min-width: 1024px) {
-    .recipe-list {
-        grid-template-columns: repeat(4, minmax(0, 1fr)); 
-    }
-}
+        .search-btn{
+            border: 2px solid var(--search-btn-color);
+            color: #fff;
+            color: #111827;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+            background-color: var(--search-btn-color);
+        }
+        /* .search-btn:hover{
+            background-color: var(--search-btn-color);
+            color: var(--background-color);
+        } */
+        .feeling-lucky-btn{
+            border: 2px solid var(--feeling-lucky-btn-color);
+            color: #fff;
+            padding: 10px 10px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+            background-color: transparent;
+        }
+        .feeling-lucky-btn:hover{
+            background-color: var(--feeling-lucky-btn-color);
+            color: var(--background-color);
+        }
+        .load-more-btn{
+            border: 2px solid var(--feeling-lucky-btn-color);
+            color: #fff;
+            padding: 10px 10px;
+            width: 90%;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            transition-duration: 0.4s;
+            background-color: transparent;
+        }
+        .load-more-btn:hover{
+            background-color: var(--feeling-lucky-btn-color);
+            color: var(--background-color);
+        }
+        
+        h3,p{
+            color: var(--primary-color);
+            font-family: var(--bold-font);
+        }
+        /* colors for color system */
+        .healthy {
+            color: green;
+        }
+        .moderate {
+            color: yellow;
+        }
+        .less-healthy {
+            color: red;
+        }
+        /* circle color */
+        .traffic-light-circle {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .healthy-circle {
+            background-color: green;
+        }
+        .moderate-circle {
+            background-color: yellow;
+        }
+        .less-healthy-circle {
+            background-color: red;
+        }
