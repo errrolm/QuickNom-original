@@ -30,6 +30,7 @@
                     </div>
                     <input type="search" id="ingredientInput" class="block w-full p-4 pl-10 text-gray-200 bg-gray-700 border border-gray-600 rounded-lg focus:ring-purple-500 focus:border-purple-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-purple-500 dark:focus:border-purple-500" placeholder="What's in your fridge today?" required>
                     <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg px-4 py-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 color-purple">Search</button>
+                    <p id="error-message" class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oops!</span> Can't seem to find it!</p>
                 </div>
             </form>
         </div>
@@ -47,6 +48,7 @@
     <script>
         const edamamAppId = "2f4013c4";
         const edamamAppKey = "173b04b81fbfda990d7c78c089bb5569";
+        document.getElementById("error-message").style.display = "none";
         function searchRecipesByIngredients() {
             const ingredients = document.getElementById("ingredientInput").value;
             const apiUrl = `https://api.edamam.com/search?q=${encodeURIComponent(ingredients)}&app_id=${edamamAppId}&app_key=${edamamAppKey}`;
@@ -70,7 +72,7 @@
                             recipeItem(recipeInfo, healthinessClass);
                         });
                     } else {
-                        recipeList.innerHTML = "No results found. Try different ingredients.";
+                        document.getElementById("error-message").style.display = "block";
                     }
                 })
                 .catch(error => {
