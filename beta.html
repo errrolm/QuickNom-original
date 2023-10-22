@@ -11,7 +11,6 @@
     <script src="https://kit.fontawesome.com/b06b850e74.js" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.css"  rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
     <title>QuickNom</title>
 </head>
 <body>
@@ -131,7 +130,7 @@
                     </p>
                     <p class="mb-3 font-normal text-white-700 dark:text-white-400">${recipeInfo.dishType ? 'Category: ' + recipeInfo.dishType : 'Description: N/A'}</p>
                     <a href="${recipeInfo.url}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 color-purple recipe-card-btn">Read Recipe</a>
-                    <a href="${recipeInfo.url}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 color-purple recipe-card-btn"><span class="material-symbols-outlined"> bookmark</span></a>
+                    <a href="${recipeInfo.url}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 color-purple recipe-card-btn">Save</a>
                 </div>
             `;
             const cardContainer = document.createElement("div");
