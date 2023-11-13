@@ -140,6 +140,22 @@
             //The thing in case.
             //<span class="traffic-light-circle ${healthinessClass}-circle"></span>
         }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+    const snowContainer = document.createElement('div');
+    snowContainer.className = 'snow-container';
+    document.body.appendChild(snowContainer);
+
+    for (let i = 0; i < 50; i++) {
+      const snowflake = document.createElement('div');
+      snowflake.className = 'snowflake';
+      snowContainer.appendChild(snowflake);
+
+      const randomDelay = Math.random() * 5; // Adjust the delay for a staggered appearance
+      snowflake.style.animationDuration = `2s, ${randomDelay}s`;
+    }
+  });
     </script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,700&display=swap');
@@ -206,6 +222,28 @@
                 grid-template-columns: repeat(4, minmax(0, 1fr)); 
             }
         }
+
+
+
+
+.snowflake {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  animation: falling linear infinite;
+}
+
+@keyframes falling {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
     </style>
 </body>
 </html>
