@@ -144,15 +144,20 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,700&display=swap');
 
+        :root{
+            --primary-color: #DCD6F7;
+            --color-purple: #6c2bd9;
+        }
+
         .font-primary {
             font-size: 35px;
-            color: #DCD6F7;
+            color: var(--primary-color);
         }
         .font-light-purple{
-            color: #dcd6f7;
+            color: var(--primary-color);
         }
         .recipe-card-border{
-            border: 3px solid #6C2BD9;
+            border: 3px solid var(--color-purple);
             background: #1f2937;
         }
         .recipe-card-btn{
@@ -160,7 +165,7 @@
 
         }
         .color-purple{
-            background: #6C2BD9;
+            background: var(--color-purple);
         }
         h3 {
             color: #fff;
