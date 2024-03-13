@@ -17,7 +17,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
     <br>
     <h1 class="font-primary">QuickNom</h1>
-    <!--I KNEW YOU'D COME HERE. GUESS WHAT, I GOT YOUR IP ADDRESS SINCE YOU OPENED THE CONSOLE. COPYING CODE ISN'T THE WAY TO GO MAN.-->
     <div class="add-recipe">
         <div class="input-group mb-3">
             <form onsubmit="event.preventDefault(); searchRecipesByIngredients();">
@@ -129,8 +128,7 @@
                         <span class="${healthinessClass}">${healthinessClass}</span>
                     </p>
                     <p class="mb-3 font-normal text-white-700 dark:text-white-400">${recipeInfo.dishType ? 'Category: ' + recipeInfo.dishType : 'Description: N/A'}</p>
-                    <a href="${recipeInfo.url}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 color-purple recipe-card-btn">Read Recipe</a>
-                    <a href="${recipeInfo.url}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 color-purple recipe-card-btn">Save</a>
+                    <a href="${recipeInfo.url}" class="w-full inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-700 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800 color-purple recipe-card-btn">Read Recipe</a>
                 </div>
             `;
             const cardContainer = document.createElement("div");
@@ -145,15 +143,20 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,700&display=swap');
 
+        :root{
+            --primary-color: #DCD6F7;
+            --color-purple: #6c2bd9;
+        }
+
         .font-primary {
             font-size: 35px;
-            color: #DCD6F7;
+            color: var(--primary-color);
         }
         .font-light-purple{
-            color: #dcd6f7;
+            color: var(--primary-color);
         }
         .recipe-card-border{
-            border: 3px solid #6C2BD9;
+            border: 3px solid var(--color-purple);
             background: #1f2937;
         }
         .recipe-card-btn{
@@ -161,7 +164,7 @@
 
         }
         .color-purple{
-            background: #6C2BD9;
+            background: var(--color-purple);
         }
         h3 {
             color: #fff;
