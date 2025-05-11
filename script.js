@@ -1,5 +1,5 @@
-const edamamAppId = "2f4013c4";
-const edamamAppKey = "173b04b81fbfda990d7c78c089bb5569";
+const edamamAppId = "APP_API_ID";
+const edamamAppKey = "APP_API_KEY";
 
 function searchRecipesByIngredients() {
     const ingredients = document.getElementById("ingredientInput").value;
